@@ -8,20 +8,20 @@ const util = require('util');
 const fs = require('fs');
 const f = require('./util/misc.js');
 const DBL = require('dblapi.js');
-const dbl = new DBL(k.keys.top);
+const dbl = new DBL(k.keys.shittyBotLists.top);
 global.c = require('chalk');
 
 
 global.Eris = require('eris');
 require("eris-additions")(Eris, { disabled: ["Channel.sendMessage", "Channel.sendCode", "Eris.Embed"] });
-global.client = new Eris.Client(k.bot.alt, {
+global.client = new Eris.Client(k.bot.token, {
+  maxShards: 3,
   connectionTimeout: 60000,
   defaultImageFormat: "png",
   defaultImageSize: 1024,
   disableEvents: {
     PRESENCE_UPDATE: true,
-    TYPING_START: true,
-    VOICE_STATE_UPDATE: true
+    TYPING_START: true
   }
 });
 

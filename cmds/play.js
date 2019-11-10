@@ -1,7 +1,7 @@
 const yt = require('../util/yt.js');
 
 exports.run = async function(message, args) {
-  if(!message.member.voiceState.channelID && !client.voiceConnections.get(message.channel.guild.id))
+  if(!message.member.voiceState && !client.voiceConnections.get(message.channel.guild.id))
     return message.channel.createMessage(`<@${message.author.id}>, join a voice channel first.`);
   else
     await client.joinVoiceChannel(message.member.voiceState.channelID);

@@ -1,4 +1,5 @@
 const fs = require('fs');
+const f = require('../util/misc.js');
 module.exports = async () => {
   console.log(c.hex('63D1F4')(`\n\nSuccesfully logged in as:\n\t${client.user.username}#${client.user.discriminator}\n`));
   client.createMessage(k.conf.logChannel, {embed: {
@@ -114,4 +115,6 @@ module.exports = async () => {
       });
     });
   }
+
+  await f.updateStatus(k.conf.statuses);
 };
