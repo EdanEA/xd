@@ -95,7 +95,7 @@ exports.run = async (message, args) => {
   else {
     await message.channel.createMessage(`The bot has a ${bHand[0].value} of ${bHand[0].suit} and a ${bHand[1].value} of ${bHand[1].suit}. (${bValue})`);
 
-    while(bValue < 17) {
+    while(bValue < 17 && !bust) {
       var position = Math.floor(Math.random() * deck.length);
       bHand.push(deck[position]);
       bValue += deck[position].weight;
@@ -127,13 +127,13 @@ exports.run = async (message, args) => {
     }
   }
 
-  if(pValue > bValue) {
+  if(pValue > bValue && !bust) {
     won = true;
     message.channel.createMessage(`You won with a value of ${pValue}; the bot had a value of ${bValue}.`);
   }
-  else if(pValue == bValue)
+  else if(pValue == bValue && !bust)
     message.channel.createMessage(`You and the bot drew with a value of ${pValue}.`);
-  else
+  else if(!bust)
     message.channel.createMessage(`The bot won with a value of ${bValue}; you had a value of ${pValue};`);
 
   if(won) {
@@ -148,7 +148,7 @@ exports.run = async (message, args) => {
       if(!r)
         return sql.run(`INSERT INTO users (id, rrWins, rrLosses, rrTotal, coinWins, coinLosses, coinTotal, rpsWins, rpsLosses, rpsTotal, rollsTotal, bjWins, bjLosses, bjTotal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [message.author.id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]);
       else
-        return sql.run(`UPDATE users SET bjWins = ${r.bjWins + 1}, bjTotal = ${r.bjTotal + 1} WHERE id = '${message.author.id}'`);
+        return sql.run(`UPDATE users SET bjLosses = ${r.bjLosses + 1}, bjTotal = ${r.bjTotal + 1} WHERE id = '${message.author.id}'`);
     });
   }
 };

@@ -1,7 +1,10 @@
 exports.run = async (message, args) => {
   async function generateEmbed(id=null, name=null) {
     var user;
-    !id ? user = client.users.get(message.channel.guild.members.find(m => m.username.search(name.toLowerCase()) !== -1).id) : user = client.users.get(id);
+    if(id == null)
+      user = client.users.get(message.channel.guild.members.find(m => m.username.search(name.toLowerCase()) !== -1).id);
+    else
+      user = client.users.get(id);
 
     if(user.bot)
       return message.channel.createMessage(`Boo, no!`);
@@ -11,7 +14,8 @@ exports.run = async (message, args) => {
 
     sql.get(`SELECT * FROM users WHERE id='${user.id}'`).then(r => {
       var e;
-      if(!r) {
+
+      if(typeof r == "undefined" || !r) {
         sql.run(`INSERT INTO users (id, rrWins, rrLosses, rrTotal, coinWins, coinLosses, coinTotal, rpsWins, rpsLosses, rpsTotal, rollsTotal, bjWins, bjLosses, bjTotal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [message.author.id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
         e = {
@@ -64,19 +68,17 @@ exports.run = async (message, args) => {
   }
 
   var idReg = new RegExp("[0-9]{18}", "g");
-  var tReg = new RegExp("-t (rr|rps|flip|rolls)", "gi");
+  var tReg = new RegExp("-t (rr|rps|flip|rolls|bj|blackjack)", "gi");
 
-  if(!idReg.test(args.join(' ')) && (args.length == 0)) {
+  if(args.length == 0) {
     await generateEmbed(message.author.id);
   } else if(idReg.test(args.join(' '))) {
     await generateEmbed(args.join(' ').match(idReg)[0]);
-  } else if(!idReg.test(args.join(' ')) && args.length > 0) {
-    await generateEmbed(null, args.join(' '))
   } else if(tReg.test(args.join(' '))) {
     var a = args.join(' ');
 
     if(a.includes("rr")) {
-      sql.all("SELECT rrWins, rrLosses, rrTotal FROM users ORDER BY rrTotal DESC LIMIT 10").then(rows => {
+      sql.all("SELECT id, rrWins, rrLosses, rrTotal FROM users ORDER BY rrTotal DESC LIMIT 10").then(rows => {
         var content = "";
         var user = "";
 
@@ -94,7 +96,7 @@ exports.run = async (message, args) => {
         return message.channel.createMessage(`\`\`\`css\nTop Russian Roulette Stats\n============================\n\n${content}\`\`\``);
       });
     } else if(a.includes("blackjack") || a.includes("bj")) {
-      sql.all("SELECT bjWins, bjLosses, bjTotal FROM users ORDER BY bjTotal DESC LIMIT 10").then(rows => {
+      sql.all("SELECT id, bjWins, bjLosses, bjTotal FROM users ORDER BY bjTotal DESC LIMIT 10").then(rows => {
         var content = "";
         var user = "";
 
@@ -112,7 +114,7 @@ exports.run = async (message, args) => {
         return message.channel.createMessage(`\`\`\`css\nTop Blackjack Stats\n=====================\n\n${content}\`\`\``);
       });
     } else if(a.includes("rps")) {
-      sql.all("SELECT rpsWins, rpsLosses, rpsTotal FROM users ORDER BY rpsTotal DESC LIMIT 10").then(rows => {
+      sql.all("SELECT id, rpsWins, rpsLosses, rpsTotal FROM users ORDER BY rpsTotal DESC LIMIT 10").then(rows => {
         var content = "";
         var user = "";
 
@@ -130,7 +132,7 @@ exports.run = async (message, args) => {
         return message.channel.createMessage(`\`\`\`css\nTop Rock-Paper-Scissors Stats\n===============================\n\n${content}\`\`\``);
       });
     } else if(a.includes("flip")) {
-      sql.all("SELECT coinWins, coinLosses, coinTotal FROM users ORDER BY coinTotal DESC LIMIT 10").then(rows => {
+      sql.all("SELECT id, coinWins, coinLosses, coinTotal FROM users ORDER BY coinTotal DESC LIMIT 10").then(rows => {
         var content = "";
         var user = "";
 
@@ -148,7 +150,7 @@ exports.run = async (message, args) => {
         return message.channel.createMessage(`\`\`\`css\nTop Coin Flip Stats\n======================\n\n${content}\`\`\``);
       });
     } else if(a.includes("rolls")) {
-      sql.all("SELECT rollsTotal FROM users ORDER BY rollsTotal DESC LIMIT 10").then(rows => {
+      sql.all("SELECT id, rollsTotal FROM users ORDER BY rollsTotal DESC LIMIT 10").then(rows => {
         var content = "";
         var user = "";
 
@@ -165,10 +167,12 @@ exports.run = async (message, args) => {
 
         return message.channel.createMessage(`\`\`\`css\nTop Dice Roll Stats\n======================\n\n${content}\`\`\``);
       });
+    } else {
+      return message.channel.createMessage("You broke it. D`:");
     }
-  }
-
-  else
+  } else if(!idReg.test(args.join(' ')) && args.length > 0 && !tReg.test(args.join(' '))) {
+    await generateEmbed(null, args.join(' '))
+  } else
     return message.channel.createMessage(`You broke it. DD:`);
 };
 

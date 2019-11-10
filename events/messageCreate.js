@@ -2,6 +2,34 @@ module.exports = (message) => {
   if(message.author.id === client.user.id)
     return;
 
+  if(!guilds[message.channel.guild.id]) {
+    guilds[message.channel.guild.id] = {
+      logging: {
+        wgb: false,
+        logEnabled: false,
+        logChannel: null,
+        wgbChannel: null
+      },
+      music: {
+        defaultSearch: "youtube",
+        defaultSearchCount: 3,
+        anySkip: false,
+        singleRepeat: false,
+        queueRepeat: false,
+        channel: "",
+        msgType: 1
+      },
+      mod: {
+        mutes: [],
+        muteRoleId: null,
+        roleSaveActive: false
+      },
+      color: "EE7600",
+      prefix: ":",
+      id: message.channel.guild.id
+    };
+  }
+
   if(!message.channel.guild)
     return;
 

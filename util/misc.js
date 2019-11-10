@@ -122,6 +122,34 @@ module.exports = {
 
   async checkMutes(config, client) {
     await client.guilds.forEach(async g => {
+      if(!config[g.id]) {
+        config[g.id] = {
+          logging: {
+            wgb: false,
+            logEnabled: false,
+            logChannel: null,
+            wgbChannel: null
+          },
+          music: {
+            defaultSearch: "youtube",
+            defaultSearchCount: 3,
+            anySkip: false,
+            singleRepeat: false,
+            queueRepeat: false,
+            channel: "",
+            msgType: 1
+          },
+          mod: {
+            mutes: [],
+            muteRoleId: null,
+            roleSaveActive: false
+          },
+          color: "EE7600",
+          prefix: ":",
+          id: g.id
+        };
+      }
+
       if(config[g.id].mod.mutes.length > 0) {
         for(var m of config[g.id].mod.mutes) {
           m.length--;
@@ -163,7 +191,7 @@ module.exports = {
   generateDeck() {
     var deck = [];
     var suits = ["Clubs", "Diamonds", "Hearts", "Spades"];
-    var values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"];
+    var values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"];
 
     for(var suit of suits) {
       for(var value of values) {

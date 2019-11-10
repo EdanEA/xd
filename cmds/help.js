@@ -64,9 +64,6 @@ exports.run = async (message, args) => {
     return e;
   }
 
-  if(message.author.id !== k.conf.ownerID)
-    return;
-
   if(!args[0])
     await getHelp(message.author.id).then(e => {
       message.channel.createMessage({embed: e});
