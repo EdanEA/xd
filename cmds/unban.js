@@ -1,5 +1,5 @@
 var f = require('../util/misc.js');
-exports.run = async (messages, args) => {
+exports.run = async (message, args) => {
   if(!f.hasAdmin(message.channel.guild.id, message.author.id, client))
     return message.channel.createMessage(`<@${message.author.id}>, you don't have appropriate permissions to use this command.`);
 
