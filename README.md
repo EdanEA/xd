@@ -15,3 +15,4 @@ Just contribute to the GitHub, in whatever style pleases you. Perhaps I will add
 All of the code is in fact written by [Patton](https://github.com/apoppatt), I am merely his surrogate.
 
 [![Discord Server](https://discordapp.com/api/guilds/380310916341956610/embed.png)](https://discord.me/xdd)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/806ae29bd69c495c8f21fc5a370e7f7c)](https://www.codacy.com/manual/EdanEA/xd?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=EdanEA/xd&amp;utm_campaign=Badge_Grade)
