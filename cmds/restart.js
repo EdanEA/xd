@@ -36,6 +36,7 @@ exports.run = async function(message, args) {
   }
 
   await writeAsync('./storage/guilds.json', guilds);
+  await writeAsync('./storage/roles.json', rolesave);
   await finalize();
 
 

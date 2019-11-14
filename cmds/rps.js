@@ -15,7 +15,7 @@ exports.run = (message, args) => {
     case "rock":
     case "r":
       choice = 0;
-      if(botChoice = 2)
+      if(botChoice == 2)
         win = true;
       break;
 

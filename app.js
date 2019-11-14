@@ -2,7 +2,7 @@ global.k = require('./storage/stuff.json');
 global.guilds = require('./storage/guilds.json');
 global.commands = [];
 global.queue = {};
-global.rolesave = {};
+global.rolesave = require('./storage/roles.json');
 
 const util = require('util');
 const fs = require('fs');

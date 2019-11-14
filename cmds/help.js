@@ -1,6 +1,6 @@
 exports.run = async (message, args) => {
   async function getHelp(id, type=0, commandName=null) {
-    var prefix = prefix == ":" ? ":" : guilds[message.channel.guild.id].prefix;
+    var prefix = guilds[message.channel.guild.id].prefix == ":" ? ":" : guilds[message.channel.guild.id].prefix;
     var fields = [];
     var e = {
       color: parseInt(`0x${guilds[message.channel.guild.id].color}`),
@@ -12,7 +12,7 @@ exports.run = async (message, args) => {
         var field = {name: `**${key.charAt(0).toUpperCase() + key.slice(1, key.length)}**`, value: ""};
 
         if(key == "misc") {
-          field.name = "**Misc.**"
+          field.name = "**Misc.**";
         }
 
         if(values.length == 0)

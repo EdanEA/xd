@@ -4,7 +4,7 @@ exports.run = async (message, args) => {
     var a = [];
 
     for (var i = 0; i < array.length; i += size) {
-      chunk = array.slice(i, i+size);
+      var chunk = array.slice(i, i+size);
       a.push(chunk);
     }
 
@@ -33,7 +33,7 @@ exports.run = async (message, args) => {
       count++;
     }
 
-    var description = `Number of Items: \`${queue.length}\`\nLength: \`${moment.duration(length, "seconds").format('h [hours,] m [minutes,] s [seconds]')}\``
+    var description = `Number of Items: \`${queue.length}\`\nLength: \`${moment.duration(length, "seconds").format('h [hours,] m [minutes,] s [seconds]')}\``;
     var pages = chunkArray(fields, 5);
 
     type = false;

@@ -14,10 +14,14 @@ module.exports = async (guild, member, oldMember) => {
     var oldNick;
     var nick;
 
-    if(oldMember.nick && !member.nick) e['description'] = `<@${member.id}> has removed their nickname.`;
-    else if(oldMember.nick && member.nick) e['description'] = `\`${oldMember.nick}\`'s nickname is now \`${member.nick}\`.`;
-    else if(!oldMember.nick && member.nick) e['description'] = `<@${member.id}>'s nickname is now \`${member.nick}\`.`
-  } else return;
+    if(oldMember.nick && !member.nick)
+      e['description'] = `<@${member.id}> has removed their nickname.`;
+    else if(oldMember.nick && member.nick)
+      e['description'] = `\`${oldMember.nick}\`'s nickname is now \`${member.nick}\`.`;
+    else if(!oldMember.nick && member.nick)
+      e['description'] = `<@${member.id}>'s nickname is now \`${member.nick}\`.`;
+  } else
+    return;
 
   await l.log(e, s);
 };

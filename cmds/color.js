@@ -18,7 +18,7 @@ exports.run = async (message, args) => {
   guilds[message.channel.guild.id].color = hex;
 
   return message.channel.createMessage({embed: {
-    title: `Update \`${message.channel.guild.name}\`'s Color`,
+    title: `Updated \`${message.channel.guild.name}\`'s Color`,
     fields: [
       {name: "Old Color Hex", value: `\`\`\`#${oldHex}\`\`\``},
       {name: "New Color Hex", value: `\`\`\`#${hex}\`\`\``}

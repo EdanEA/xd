@@ -168,10 +168,10 @@ exports.run = async (message, args) => {
         return message.channel.createMessage(`\`\`\`css\nTop Dice Roll Stats\n======================\n\n${content}\`\`\``);
       });
     } else {
-      return message.channel.createMessage("You broke it. D`:");
+      return message.channel.createMessage(`You broke it. D\`:`);
     }
   } else if(!idReg.test(args.join(' ')) && args.length > 0 && !tReg.test(args.join(' '))) {
-    await generateEmbed(null, args.join(' '))
+    await generateEmbed(null, args.join(' '));
   } else
     return message.channel.createMessage(`You broke it. DD:`);
 };

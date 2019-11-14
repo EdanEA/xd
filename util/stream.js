@@ -9,7 +9,7 @@ exports.play = async (guild, client) => {
     return;
 
   if(q[0] && q[0].skip == true) {
-    for await(i of q) {
+    for await(var i of q) {
       if(i.skip)
         q.shift();
     }

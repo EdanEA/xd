@@ -1,3 +1,3 @@
 module.exports = (message, id) => {
-  console.log(`Warning from shard ${id}:\n${message.stack}`);
+  console.log(`Warning from shard ${id}:\n${message}`);
 };

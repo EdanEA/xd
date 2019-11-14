@@ -14,7 +14,7 @@ module.exports = async (guild, oldGuild) => {
     desc.length > 0 ? desc += "\n\n" : null;
 
     var pre = oldGuild.icon == null ? "" : ` [Previous icon](https://cdn.discordapp.com/icons/${guild.id}/${oldGuild.icon}.png?size=1024).`;
-    desc += `The [guild icon](${guild.iconURL}) was changed.${pre}`
+    desc += `The [guild icon](${guild.iconURL}) was changed.${pre}`;
   }
 
   if(guild.region !== oldGuild.region) {
@@ -40,7 +40,7 @@ module.exports = async (guild, oldGuild) => {
 
   if(guild.afkTimeout !== oldGuild.afkTimeout) {
     desc.length > 0 ? desc += "\n\n" : null;
-    desc += `The guild's AFK timeout was set to \`${guild.afkTimeout / 60} minutes\`. Was \`${oldGuild.afkTimeout / 60} minutes\`.`
+    desc += `The guild's AFK timeout was set to \`${guild.afkTimeout / 60} minutes\`. Was \`${oldGuild.afkTimeout / 60} minutes\`.`;
   }
 
   if(guild.ownerID !== oldGuild.ownerID) {

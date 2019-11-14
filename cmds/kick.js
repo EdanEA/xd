@@ -3,22 +3,21 @@ exports.run = async (message, args) => {
   if(!f.hasMod(message.channel.guild.id, message.author.id, client))
     return message.channel.createMessage(`<@${message.author.id}>, you don't have appropriate permissions to use this command.`);
 
-  var idReg = /[0-9]{18}/g;
-  var idRegex = new RegExp('[0-9]{18}', 'g');
+  var idReg = new RegExp('[0-9]{18}', 'g');
   var mReg = /<@[0-9]{18}>/g;
   var clearReg = /\s+/g;
   var msg = args.join(' ');
   var r;
   var id;
 
-  if(!idRegex.test(msg))
+  if(!idReg.test(msg))
     return message.channel.createMessage(`<@${message.author.id}>, you need to provide the user's information.`);
 
-  id = msg.match(idReg);
+  id = msg.match(idReg)[0];
   r = msg.replace(mReg, "").replace(idReg, "").replace(clearReg, " ");
 
-  var c = f.compare(message.member, message.channel.guild.members.get(u));
-  var cb = perms.compare(message.channel.guild.members.get(client.user.id), message.channel.guild.members.get(u));
+  var c = f.compare(message.member, message.channel.guild.members.get(id));
+  var cb = perms.compare(message.channel.guild.members.get(client.user.id), message.channel.guild.members.get(id));
 
   if(c == false)
     return message.channel.createMessage(`<@${message.author.id}>, the user you're trying to kick has a higher role than you.`);
@@ -31,9 +30,9 @@ exports.run = async (message, args) => {
   else
     r = `${r} \n\n(Kicked by ${message.author.username}#${message.author.discriminator})`;
 
-  await client.kickGuildMember(message.channel.guild.id, u, r);
+  await client.kickGuildMember(message.channel.guild.id, id, r);
   await client.createMessage(message.channel.id, {embed: {
-    description: `${message.author.username}#${message.author.discriminator} kicked ${client.users.get(u).username}#${client.users.get(u).discriminator}`,
+    description: `${message.author.username}#${message.author.discriminator} kicked ${client.users.get(id).username}#${client.users.get(id).discriminator}`,
     color: parseInt(`0x${guilds[message.channel.guild.id].color}`),
     fields: [{ name: "Reason", value: `\`\`\`${r}\`\`\`` }]
   }});

@@ -1,6 +1,6 @@
 {
   "name": "XD",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "description": "Complete rewrite and overhaul of the so-called \"Shit Bot,\" also known as Russian Roulette.",
   "main": "app.js",
   "scripts": {

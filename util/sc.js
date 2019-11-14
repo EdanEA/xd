@@ -32,8 +32,7 @@ module.exports = {
       if(!body || !body.id)
         return {};
 
-      return { title: body.title, id: body.id, author: body.user.username, duration: dur, type: 1, img: body.artwork_url }
-
+      return { title: body.title, id: body.id, author: body.user.username, duration: dur, type: 1, img: body.artwork_url };
     }
   },
 
@@ -79,7 +78,7 @@ module.exports = {
       return [];
 
     for(var t of g.body.tracks) {
-      tracks.push({ title: t.title, id: t.id, author: t.user.username, duration: Math.round(t.duration / 1000), requester: user, type: 1, requester: user, img: t.artwork_url });
+      tracks.push({ title: t.title, id: t.id, author: t.user.username, duration: Math.round(t.duration / 1000), requester: user, type: 1, img: t.artwork_url });
     }
 
     return tracks;

@@ -2,27 +2,27 @@ exports.run = function (message, args) {
   var g = guilds[message.channel.guild.id];
 
   if(!args[0] || args[0] == "single") {
-    if(guild.music.singleRepeat == true) {
-      guild.music.singleRepeat = false;
+    if(g.music.singleRepeat == true) {
+      g.music.singleRepeat = false;
 
       return message.channel.createMessage(`The guild's single item repeat is now disabled.`);
     } else {
-      if(guild.music.queueRepeat == true)
-        guild.music.queueRepeat = false;
+      if(g.music.queueRepeat == true)
+        g.music.queueRepeat = false;
 
-      guild.music.singleRepeat = true;
+      g.music.singleRepeat = true;
       return message.channel.createMessage(`The guild's single item repeat is now enabled.`);
     }
   } else if(args[0] == "queue" || args[0] == "loop") {
-    if(guild.music.queueRepeat == true) {
-      guild.music.queueRepeat = false;
+    if(g.music.queueRepeat == true) {
+      g.music.queueRepeat = false;
 
       return message.channel.createMessage(`The guild's queue loop is now disabled.`);
     } else {
-      if(guild.music.singleRepeat == true)
-        guild.music.singleRepeat = false;
+      if(g.music.singleRepeat == true)
+        g.music.singleRepeat = false;
 
-      guild.queueRepeat = true;
+      g.queueRepeat = true;
       return message.channel.createMessage(`The guild's queue loop is now enabled.`);
     }
   } else

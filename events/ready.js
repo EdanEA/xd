@@ -69,9 +69,10 @@ module.exports = async () => {
       guilds[g.id] = {
         logging: {
           wgb: false,
+          wgbChannel: null,
           logEnabled: false,
           logChannel: null,
-          wgbChannel: null
+          events: []
         },
         music: {
           defaultSearch: "youtube",

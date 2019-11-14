@@ -3,10 +3,10 @@ var l = require('../util/logging.js');
 module.exports = async (message, oldMessage) => {
   var s = guilds[message.channel.guild.id];
 
-  if(message.author.id == client.user.id)
+  if(!s.logging.logEnabled || !s.logging.logChannel)
     return;
 
-  if(!s.logging.logEnabled || !s.logging.logChannel)
+  if(message.author.id == client.user.id)
     return;
 
   if(!message.content || !oldMessage.content || !message.author)

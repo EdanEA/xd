@@ -43,7 +43,7 @@ exports.run = async (message, args) => {
       ],
       color: parseInt(`0x${guilds[message.channel.guild.id].color}`),
       thumbnail: { url: client.guilds.get(id).iconURL }
-    }
+    };
 
     return e;
   };

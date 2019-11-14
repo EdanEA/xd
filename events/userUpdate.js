@@ -11,14 +11,14 @@ module.exports = async (user, oldUser) => {
   };
 
   if(user.username !== oldUser.username || user.discriminator !== oldUser.discriminator)
-    e['description'] = `\`${oldMember.username}#${oldMember.discriminator}\` is now known as \`${member.username}#${member.discriminator}\`.`;
+    e['description'] = `\`${oldUser.username}#${oldUser.discriminator}\` is now known as \`${user.username}#${user.discriminator}\`.`;
   else
     return;
 
-  for(var g of client.guilds) {
-    if(g[1].members.has(user.id))
-      guilds.push(g[0]);
-  }
+  client.guilds.forEach(g => {
+    if(g.members.has(user.id))
+      guilds.push(g);
+  });
 
   await l.multiLog(guilds, user.id, e);
 };

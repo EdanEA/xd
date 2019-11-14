@@ -126,9 +126,10 @@ module.exports = {
         config[g.id] = {
           logging: {
             wgb: false,
+            wgbChannel: null,
             logEnabled: false,
             logChannel: null,
-            wgbChannel: null
+            events: []
           },
           music: {
             defaultSearch: "youtube",
@@ -227,7 +228,7 @@ module.exports = {
   },
 
   async postStats(keys, dbl, id, guildCount, shardCount, userCount, vcCount) {
-    await dbl.postStats(serverCount, 0, shardCount);
+    await dbl.postStats(guildCount, 0, shardCount);
     await snek.post(`https://discord.bots.gg/api/v1/bots/${id}/stats`, {headers: {
       Authorization: keys.dbgg,
       "Content-Type": "application/json"

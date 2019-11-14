@@ -6,9 +6,10 @@ module.exports = (message) => {
     guilds[message.channel.guild.id] = {
       logging: {
         wgb: false,
+        wgbChannel: null,
         logEnabled: false,
-        logChannel: null,
-        wgbChannel: null
+        logChannel: null
+        events: [],
       },
       music: {
         defaultSearch: "youtube",

@@ -18,7 +18,7 @@ exports.run = async (message, args) => {
       var del = await message.channel.deleteMessages(ids);
       await message.channel.createMessage(`Successfully deleted ${ids.length} messages in \`#${message.channel.name}\`.`).then(m => {
         setTimeout(() => {
-          m.delete()
+          m.delete();
         }, 15000);
       });
     } else {
@@ -35,7 +35,11 @@ exports.run = async (message, args) => {
       });
 
       await message.channel.deleteMessages(ids);
-      message.channel.createMessage(`Successfully deleted ${ids.length} messages from ${u[0].username}#${u[0].discriminator}, in \`#${message.channel.name}\``).then(m => { setTimeout(() => { m.delete() }, 10000) });
+      message.channel.createMessage(`Successfully deleted ${ids.length} messages from ${u[0].username}#${u[0].discriminator}, in \`#${message.channel.name}\``).then(m => {
+        setTimeout(() => {
+          m.delete();
+        }, 10000);
+      });
     }
   });
 };

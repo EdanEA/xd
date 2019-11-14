@@ -41,7 +41,6 @@ exports.run = async function(message, args) {
         title: "RoleSave Info",
         description: "The `rolesave` command is used to save the roles which users have in this guild--by default this is not enabled. Below is help on using it. By the way, I need to be higher than the roles I'll be storing if you want them to be added back when a member joins back.\nDisclaimer: By enabling the `rolesave` command, you hereby grant the bot to store data for your guild; if disabled it will no longer hold this data.",
       }});
-      break;
 
     case "start":
       if(guilds[message.channel.guild.id].mod.roleSaveActive == true)
@@ -55,7 +54,6 @@ exports.run = async function(message, args) {
 
       await getUserRoles(message.channel.guild);
       return message.channel.createMessage(`<@${message.author.id}>, successfully saved the current roles of the server; they will now add them back to a user if they leave and join back.`);
-      break;
 
     case "stop":
       if(guilds[message.channel.guild.id].mod.roleSaveActive !== true)
@@ -71,7 +69,6 @@ exports.run = async function(message, args) {
       rolesave[message.channel.guild.id] = [];
 
       return message.channel.createMessage(`<@${message.author.id}>, I've now stopped storing the roles of this server.`);
-      break;
 
     case "update":
       if(guilds[message.channel.guild.id].mod.roleSaveActive !== true)
@@ -80,7 +77,6 @@ exports.run = async function(message, args) {
       await getUserRoles(message.channel.guild);
 
       return message.channel.createMessage(`<@${message.author.id}>, I've updated the roles.`);
-      break;
 
     default:
       return message.channel.createMessage({embed: {
@@ -92,8 +88,8 @@ exports.run = async function(message, args) {
         ],
         title: "RoleSave Info",
         description: "The `rolesave` command is used to save the roles which users have in this guild--by default this is not enabled. Below is help on using it. By the way, I need to be higher than the roles I'll be storing if you want them to be added back when a member joins back.\nDisclaimer: By enabling the `rolesave` command, you hereby grant the bot to store data for your guild; if disabled it will no longer hold this data.",
-      }});  }
-      break;
+      }});
+  }
 };
 
 exports.info = {

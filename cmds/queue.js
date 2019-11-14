@@ -10,7 +10,7 @@ exports.run = async (message, args) => {
       title: `Search Results`,
       color: parseInt(`0x${color}`),
       footer: { text: `Reply with the number corresponding to the option you want queued.` }
-    }
+    };
 
     if(type == "youtube") {
       await yt.search(query, playlist, count).then(async items => {
@@ -36,7 +36,7 @@ exports.run = async (message, args) => {
 
           var length = "";
           if(playlist)
-            length = `\n\tLength: ${track.length}`
+            length = `\n\tLength: ${track.length}`;
 
           tracks.push({name: `Option \`[${Math.floor(i + 1)}]\``, value: `\`${track.title}\`\n\tBy: \`${track.author}\`\n\tDuration: \`${moment.duration(track.duration, "seconds").format("h [hours,] m [minutes,] s [seconds]")}\`${length}`})
           ids.push(items[i].id);
@@ -190,7 +190,7 @@ exports.run = async (message, args) => {
 
         await yt.info(e.ids[choice], true).then(v => {
           playlistInfo = v;
-        })
+        });
       }
 
       else if(t == "soundcloud" && p == false)

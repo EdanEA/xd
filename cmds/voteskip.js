@@ -22,7 +22,7 @@ exports.run = async function(message, args) {
           queue[message.channel.guild.id][0].skip = true;
           await client.voiceConnections.get(message.channel.guild.id).stopPlaying();
         }
-        
+
         else if(!client.voiceConnections.get(message.channel.guild.id) || !client.voiceConnections.get(message.channel.guild.id).playing)
           queue[message.channel.guild.id].shift()
       } else if(!out.bool && !out.tie) {
@@ -57,7 +57,7 @@ exports.run = async function(message, args) {
   });
 
   setTimeout(() => {
-    finalize(mid)
+    finalize(mid);
   }, 10000);
 };
 

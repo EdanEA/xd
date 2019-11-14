@@ -110,12 +110,12 @@ exports.run = async (message, args) => {
         p = "youtube"
 
       if(args[1] == "youtube")
-        p = "youtube"
+        p = "youtube";
       else if(args[1] == "soundcloud")
         p = "soundcloud";
       else
         p = "youtube";
-      
+
       g.music.defaultSearch = p;
 
       return message.channel.createMessage(`<@${message.author.id}>, the default search platform is now \`${g.music.defaultSearch}\`.`);
@@ -135,7 +135,7 @@ exports.run = async (message, args) => {
     case 7:
       var hexReg = /^#?(?:[0-9a-f]{3}){1,2}$/i;
       var hexRegEx = new RegExp('^#?(?:[0-9a-f]{3}){1,2}$', 'gi');
-      var msg = args.join(' ')
+      var msg = args.join(' ');
       var hex;
 
       if(!hexRegEx.test(msg))
@@ -153,7 +153,7 @@ exports.run = async (message, args) => {
       var prefix;
 
       if(!args[1])
-        prefix = ":"
+        prefix = ":";
 
       if(msg.length > 5)
         return message.channel.createMessage(`<@${message.author.id}>, the prefix length is too long.`);
