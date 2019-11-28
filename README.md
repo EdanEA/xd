@@ -7,7 +7,7 @@ Just contribute to the GitHub, in whatever style pleases you. Perhaps I will add
 
 ## How to steal code.
 1. Open up a terminal and `cd` to your favorite directory.
-2. Type in `git https://github.com/edanea/xd.git`.
+2. Type in `git clone https://github.com/edanea/xd.git`.
 3. Wait for the Git to download.
 4. Success.
 
