@@ -46,14 +46,16 @@ exports.run = (message, args) => {
         "Oofers, fam-cycle. I know it had to be done, but was there a more humane way to obliterate something with a stone, other than smashing it with your bare hands? I'm fairly certain there is--perhaps you're just a brute.",
         "I'm bawling. That pair of scissors is--was--my son.",
         "Big rock break little scissors; rock big and strong. (:",
-        ":D"
+        ":D",
+        "🗿 smashes ✂️. :^)"
       ],
       [
         "Oh, my God--holy fucking shit! You covered it! How was it done?",
         `How dare you cover my one child, Rock? She was an esteemed member of our coalition, \`CAtFISH\`, but by covering her you've brought deep shame upon our family.\nShame on you, ${message.author.username}... Shame on you.`,
         `*${message.author.username} covers the rock*\n\n*the crowd murmurs*:\n"Jesus, what balls."`,
         "Oofies, famalam. I think that was the literal definition of devastating devastation; I've never seen something so ferocious.",
-        "(:"
+        "(:",
+        "🧻 covers 🗿. (:"
       ],
       [
         "Wow, oh wow, you won because my internal logic dictated that your provided argument caused the `win` variable to evaluate to true.\nOh yeah, and, uh, good job cutting that paper--or something.",
@@ -61,7 +63,8 @@ exports.run = (message, args) => {
         "I'll have you know, that piece of paper was a transgender male. Good on you, I say; sadly, I think that's a hate-crime, so I'm gonna have to do my duty as a citizen and slaughter you now.",
         "\"Aghhh! Fuck, oh fuck! Is this it?! Is this where I die?\" the paper said, before losing all sentience--leaving it but a lifeless amalgamation of wood pulp. You stare down, losing grip of the scissors, suddenly dropping from your hands--you begin questioning the purpose of your actions.",
         "Wow, you just sliced through that paper, as if you were an ordinary tool, commonly used to cut paper and other such items.",
-        ":)"
+        ":)",
+        "✂️ cut 🧻. :D"
       ]
     ],
 
@@ -70,20 +73,23 @@ exports.run = (message, args) => {
         "Hahaha, yes! You lost to a piece of paper? How is that even possible--was the residual bleach too much to handle?",
         "Paper wins; rock loses. So sad; so improbable.",
         "D:",
-        "D`:"
+        "D`:",
+        "🧻 covers 🗿. )':"
       ],
       [
         "I've always wondered what epitomal sadness is, but seeing your paper just get cut by my big-boi scissors is definitely in the running.",
         "Wowowowowowowowow. That wispy paper of yours was effectively lacerated by my powerful, sharp scissors.",
         "):",
-        ")':"
+        ")':",
+        "✂️ cut 🧻. D`:"
       ],
       [
         "Oh no! Your scissors are broke now, lil' boi.",
         "*wheeze*\nI- I, uh *sudden laughter*\nThose scissors are broke, man. Ah-ha!",
         "Scissors broke by a rock? Impossible--yet it is so.",
         ":(",
-        ":'("
+        ":'(",
+        "🗿 smashes ✂️. :("
       ]
     ]
   };

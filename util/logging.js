@@ -14,7 +14,7 @@ module.exports = {
       if(!s.logging.logEnabled || !s.logging.logChannel) continue;
 
       if(embed !== null) {
-        embed.color = parseInt(`0x${s.color}`)
+        embed.color = parseInt(`0x${s.color}`);
 
         await client.createMessage(s.logging.logChannel, {embed: embed});
       } else if(embed == null && desc !== null) {
@@ -31,7 +31,7 @@ module.exports = {
 
   async getBan(uid, gid) {
     var r = {staff: "", reason: ""};
-    await client.guilds.get(gid).getAuditLogs(5, null, 22).then(l => {
+    await client.guilds.get(gid).getAuditLogs(1, null, 22).then(l => {
       var users = l.users;
       var entries = l.entries;
 
@@ -57,7 +57,7 @@ module.exports = {
   async getKick(uid, gid) {
     var r = {reason: "", staff: ""};
 
-    await client.guilds.get(gid).getAuditLogs(5, null, 20).then(k => {
+    await client.guilds.get(gid).getAuditLogs(1, null, 20).then(k => {
       var users = k.users;
       var entries = k.entries;
 

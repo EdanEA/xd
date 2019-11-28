@@ -2,7 +2,7 @@ var l = require('../util/logging.js');
 
 module.exports = async (guild, member) => {
   var s = guilds[guild.id];
-  var url = member.avatar == null ? member.defaultAvatar : `https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.jpg?size=2048`
+  var url = member.avatar == null ? member.defaultAvatar : `https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.jpg?size=2048`;
   var e;
 
   if(s.mod.roleSaveActive)

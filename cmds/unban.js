@@ -12,26 +12,22 @@ exports.run = async (message, args) => {
   if(!idReg.test(msg))
     return message.channel.createMessage(`<@${message.author.id}>, you need to provide the user's information.`);
 
-  id = msg.match(idReg)[];
-
-  r = msg.replace(idReg, "").replace(clearReg, " ");
-
-  var c = f.compare(message.member, message.channel.guild.members.get(id));
-  var cb = perms.compare(message.channel.guild.members.get(client.user.id), message.channel.guild.members.get(u));
+  id = msg.match(idReg)[0];
+  r = msg.replace(idReg, "").replace(clearReg, " ").slice(1);
 
   if(!r)
-    r = `No reason was given.\n\n(Unbanned by ${client.users.get(message.author.id).username}#${client.users.get(message.author.id).discriminator})`;
+    r = `No reason was given.\n\n(Unbanned by ${message.author.username}#${message.author.discriminator})`;
   else
-    r = `${r} \n\n(Unbanned by ${message.author.username}#${message.author.discriminator})`;
+    r = `${r}\n\n(Unbanned by ${message.author.username}#${message.author.discriminator})`;
 
-  await client.unbanGuildMember(message.channel.guild.id, u, r);
+  var user = client.users.get(id) ? `${client.users.get(id).username}#${client.users.get(id).discriminator}` : id;
+
+  await client.unbanGuildMember(message.channel.guild.id, id);
   await client.createMessage(message.channel.id, {embed: {
-    description: `${message.author.username}#${message.author.discriminator} unbanned ${client.users.get(id).username}#${client.users.get(id).discriminator}`,
+    description: `${message.author.username}#${message.author.discriminator} unbanned ${user}`,
     color: parseInt(`0x${guilds[message.channel.guild.id].color}`),
     fields: [{ name: "Reason", value: `\`\`\`${r}\`\`\`` }]
   }});
-
-  return;
 };
 
 exports.info = {

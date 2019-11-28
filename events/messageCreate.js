@@ -8,8 +8,8 @@ module.exports = (message) => {
         wgb: false,
         wgbChannel: null,
         logEnabled: false,
-        logChannel: null
-        events: [],
+        logChannel: null,
+        events: []
       },
       music: {
         defaultSearch: "youtube",

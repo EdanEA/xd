@@ -2,15 +2,13 @@ global.k = require('./storage/stuff.json');
 global.guilds = require('./storage/guilds.json');
 global.commands = [];
 global.queue = {};
+global.users = {};
 global.rolesave = require('./storage/roles.json');
 
 const util = require('util');
 const fs = require('fs');
 const f = require('./util/misc.js');
-const DBL = require('dblapi.js');
-const dbl = new DBL(k.keys.shittyBotLists.top);
 global.c = require('chalk');
-
 
 global.Eris = require('eris');
 require("eris-additions")(Eris, { disabled: ["Channel.sendMessage", "Channel.sendCode", "Eris.Embed"] });
@@ -61,7 +59,4 @@ setInterval(async () => {
 setInterval(async () => {
   await f.checkInactive();
   await f.updateStatus(k.conf.statuses);
-
-  if(client.token == k.bot.token)
-    await f.postStats(k.keys.shittyBotLists, dbl, client.user.id, client.guilds.size, client.shards.size, client.users.size, client.voiceConnections.size);
 }, 18E6);

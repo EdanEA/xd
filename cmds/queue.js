@@ -21,7 +21,7 @@ exports.run = async (message, args) => {
               tracks.push({name: `Option \`[${Math.floor(i + 1)}]\``, value: `\`${v.title}\`\n\tBy: \`${v.author}\`\n\tPlaylist Length: \`${v.length}\`` });
               ids.push(v.id);
             } else {
-              tracks.push({name: `Option \`[${Math.floor(i + 1)}]\``, value: `\`${v.title}\`\n\tBy: \`${v.author}\`\n\tDuration: \`${moment.duration(v.duration, "seconds").format("h [hours,] m [minutes,] s [seconds]")}\`` })
+              tracks.push({name: `Option \`[${Math.floor(i + 1)}]\``, value: `\`${v.title}\`\n\tBy: \`${v.author}\`\n\tDuration: \`${moment.duration(v.duration, "seconds").format("h [hours,] m [minutes,] s [seconds]")}\`` });
               ids.push(v.id);
             }
           });
@@ -38,10 +38,10 @@ exports.run = async (message, args) => {
           if(playlist)
             length = `\n\tLength: ${track.length}`;
 
-          tracks.push({name: `Option \`[${Math.floor(i + 1)}]\``, value: `\`${track.title}\`\n\tBy: \`${track.author}\`\n\tDuration: \`${moment.duration(track.duration, "seconds").format("h [hours,] m [minutes,] s [seconds]")}\`${length}`})
+          tracks.push({name: `Option \`[${Math.floor(i + 1)}]\``, value: `\`${track.title}\`\n\tBy: \`${track.author}\`\n\tDuration: \`${moment.duration(track.duration, "seconds").format("h [hours,] m [minutes,] s [seconds]")}\`${length}`});
           ids.push(items[i].id);
 
-          i++
+          i++;
         }
       });
     }
@@ -64,32 +64,31 @@ exports.run = async (message, args) => {
 
   var g = guilds[message.channel.guild.id];
   var clearReg = /\s+/g;
-  var cRegEx = new RegExp('-c \d+','gi');
-  var cReg = /-c \d+/gi;
+  var cReg = new RegExp('-c \\d+','gi');
   var tReg = new RegExp('-t (youtube|soundcloud|yt|sc)','gi');
-  var pRegEx = new RegExp('-p','gi');
-  var pReg = /-p/gi;
+  var pReg = new RegExp('-p','gi');
+  var idReg = /^(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?.*?(?:v|list)=(.*?)(?:&|$)|^(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?(?:(?!=).)*\/(.*)$/;
   var t;
   var c;
   var p;
   var queueObject;
   var playlistInfo;
 
-  // if(cRegEx.test(args.join(' ')))
+  // if(cReg.test(args.join(' ')))
   //   c = args.join(' ').match(cReg)[0];
 
   if(tReg.test(args.join(' ')))
     t = args.join(' ').match(tReg)[0];
 
-  if(pRegEx.test(args.join(' ')))
+  if(pReg.test(args.join(' ')))
     p = args.join(' ').match(pReg)[0];
 
 
   var q = args.join(' ').replace(cReg, "").replace(tReg, "").replace(pReg, "").replace(clearReg, " ");
   var u = new URL(q);
 
-  if(u.pathname.split('/')[0] == "youtube.com" || u.host == "youtube.com" || u.pathname.split('/')[0] == "youtu.be" || u.host == "youtu.be") {
-    var id = u.href.match(/^(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?.*?(?:v|list)=(.*?)(?:&|$)|^(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?(?:(?!=).)*\/(.*)$/)[1];
+  if(u.pathname.split('/')[0] == "youtube.com" || u.host == "youtube.com" || u.pathname.split('/')[0] == "youtu.be" || u.host == "youtu.be" || u.host == "www.youtube.com" || u.host == "www.youtu.be") {
+    var id = u.href.match(idReg)[1];
 
     if(!u.href.includes("playlist")) {
       var info;
@@ -230,6 +229,6 @@ exports.info = {
   usage: ":queue <url | search term> [platform] [playlist]",
   args: "<url | search term>: Either a Soundcloud or YouTube URL or a search term.\n[-t platform]: The platform to search from, either `youtube` or `soundcloud`. By default it uses whatever is specified in the config.\n[-p playlist]: Included, as for the bot to search for playlists only.",
   description: "The `queue` command allows for a user to add an item to the guild's music queue. It does this by either being provided a url or by being given a search term.\n\nDo note: It is recommended to use Youtube, as Soundcloud's API is notoriously unstable and ill-defined.",
-  examples: ":queue youtu.be/5msWb1l2j6g\n:queue one more love song\n:queue -t sc legal death\n:queue -t yt my fortnite house\n:queue -p arizona bay",
+  examples: ":queue youtu.be/5msWb1l2j6g\n:queue one more love song\n:queue -t sc -p legal death\n:queue -t yt my fortnite house\n:queue -p arizona bay",
   type: "music"
 };

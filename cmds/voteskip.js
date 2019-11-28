@@ -24,13 +24,13 @@ exports.run = async function(message, args) {
         }
 
         else if(!client.voiceConnections.get(message.channel.guild.id) || !client.voiceConnections.get(message.channel.guild.id).playing)
-          queue[message.channel.guild.id].shift()
+          queue[message.channel.guild.id].shift();
       } else if(!out.bool && !out.tie) {
         await m.removeReactions();
-        await m.edit({embed: {title: "Vote failed.", description: `The vote failed with ${out.no} votes over ${out.yes}.`, color: 0x42C0FB}});
+        await m.edit({embed: {title: "Vote failed.", description: `The vote failed with ${out.no} votes over ${out.yes}.`, color: parseInt(`0x${guilds[message.channel.guild.id].color}`)}});
       } else if(out.tie) {
         await m.removeReactions();
-        await m.edit({embed: {title: "Vote tied.", description: `The vote tied with ${out.yes} votes.`, color: 0x42C0FB}});
+        await m.edit({embed: {title: "Vote tied.", description: `The vote tied with ${out.yes} votes.`, color: parseInt(`0x${guilds[message.channel.guild.id].color}`)}});
       }
 
       return;

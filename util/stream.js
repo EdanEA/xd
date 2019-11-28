@@ -23,6 +23,7 @@ exports.play = async (guild, client) => {
     setTimeout(async () => {
       await client.createMessage(guild.music.channel, `The queue has ended.`);
       guild.music.channel = null;
+      guild.music.vc = null;
     });
 
     return;

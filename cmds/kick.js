@@ -14,10 +14,10 @@ exports.run = async (message, args) => {
     return message.channel.createMessage(`<@${message.author.id}>, you need to provide the user's information.`);
 
   id = msg.match(idReg)[0];
-  r = msg.replace(mReg, "").replace(idReg, "").replace(clearReg, " ");
+  r = msg.replace(mReg, "").replace(idReg, "").replace(clearReg, " ").slice(1);
 
   var c = f.compare(message.member, message.channel.guild.members.get(id));
-  var cb = perms.compare(message.channel.guild.members.get(client.user.id), message.channel.guild.members.get(id));
+  var cb = f.compare(message.channel.guild.members.get(client.user.id), message.channel.guild.members.get(id));
 
   if(c == false)
     return message.channel.createMessage(`<@${message.author.id}>, the user you're trying to kick has a higher role than you.`);

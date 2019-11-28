@@ -6,7 +6,7 @@ exports.run = async (message, args) => {
   if(!args[0]) {
     return message.channel.createMessage({embed: {
       color: parseInt(`0x${g.color}`),
-      footer: { text: "To change a setting, do `:config [option] [value]`." },
+      footer: { text: "To change a setting, do `:config ([option] [value])`." },
       fields: [
         { name: "`[1]` Logging", value: `Currently: \`${g.logging.logEnabled}\`\nValue: \`true\` or \`false\`.` },
         { name: "`[2]` Logging Channel", value: `Currently: \`${g.logging.logChannel}\`\nValue: A text-channel's ID.` },
@@ -15,7 +15,7 @@ exports.run = async (message, args) => {
         { name: "`[5]` Default Search", value: `Currently: \`${g.music.defaultSearch}\`\nValue: Either \`youtube\` or \`soundcloud\`.` },
         { name: "`[6]` Song Start Message Type", value: `Currently: \`${g.music.msgType}\`\nValue: Either \`0\` for no messages, \`1\` for embed messages or \`2\` for text-based messages.` },
         { name: "`[7]` Message Embed Color", value: `Currently: \`${g.color}\`\nValue: An HTML color code. (e.g. #ff0000)` },
-        { name: "`[8]` Guild Preix", value: `Currently: \`${g.prefix}\`\nValue: A string of characters less than 4 characters in length.` }
+        { name: "`[8]` Guild Prefix", value: `Currently: \`${g.prefix}\`\nValue: A string of characters less than 4 characters in length.` }
       ]
     }});
   }
@@ -107,7 +107,7 @@ exports.run = async (message, args) => {
       var p;
 
       if(!args[1])
-        p = "youtube"
+        p = "youtube";
 
       if(args[1] == "youtube")
         p = "youtube";
@@ -155,7 +155,7 @@ exports.run = async (message, args) => {
       if(!args[1])
         prefix = ":";
 
-      if(msg.length > 5)
+      if(msg.length > 4)
         return message.channel.createMessage(`<@${message.author.id}>, the prefix length is too long.`);
       else
         prefix = msg;

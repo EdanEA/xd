@@ -12,6 +12,9 @@ module.exports = async (message, oldMessage) => {
   if(!message.content || !oldMessage.content || !message.author)
     return;
   else
+    if(message.content == oldMessage.content)
+      return;
+
     var e = {
       description: `A message from <@${message.author.id}> was edited in <#${message.channel.id}>.`,
       fields: [

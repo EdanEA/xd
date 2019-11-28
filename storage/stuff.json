@@ -2,7 +2,7 @@
   "bot": {
     "token": "",
     "alt": "",
-    "invitePermissions": ""
+    "invitePermissions": "8"
   },
 
   "conf": {
@@ -10,22 +10,14 @@
     "baseColor": "EE7600",
     "logChannel": "",
     "ownerID": "",
-    "staff": [
-
-    ],
-    "beta": [
-
-    ],
-    "statuses": [
-
-    ]
+    "staff": [],
+    "beta": [],
+    "statuses": []
   },
 
   "keys": {
     "ytk":"",
     "scID":"",
-    "shittyBotLists": {
-
-    }
+    "shittyBotLists": {}
   }
 }

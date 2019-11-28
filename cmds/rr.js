@@ -107,7 +107,7 @@ exports.run = async (message, args) => {
 };
 
 exports.info = {
-  usage: ")rr [bullets] [-s safe]",
+  usage: ":rr [bullets] [-s safe]",
   args: "[bullets]: The number of bullets to be used. Defaults to 1.\n[safe]: To be used, if you don't want to be banned whenever playing.",
   examples: ":rr 2\n :rr 5\n:rr -s\n:rr",
   description: "Feeling suicidal? Just want a bit of thrill? Then play some Russian roulette.",

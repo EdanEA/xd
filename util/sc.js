@@ -22,7 +22,7 @@ module.exports = {
       if(!body || !body.id)
         return {};
 
-      return { title: body.title, id: body.id, author: body.user.username, duration: dur, type: 1, img: body.artwork_url }
+      return { title: body.title, id: body.id, author: body.user.username, duration: dur, type: 1, img: body.artwork_url };
     } else if(pid !== null) {
       var g = await snek.get(`https://api.soundcloud.com/playlists/${pid}?client_id=${sc}`);
       var dur = Math.round(g.body.duration / 1000);

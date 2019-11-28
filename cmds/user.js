@@ -21,7 +21,7 @@ exports.run = async (message, args) => {
       admin = true;
 
     if(!message.channel.guild.members.get(user.id).roles[0])
-      roles += "`@everyone`"
+      roles += "`@everyone`";
 
     for(var i = 0; i < message.channel.guild.members.get(user.id).roles.length; i++) {
       var role = `\`${message.channel.guild.roles.get(message.channel.guild.members.get(user.id).roles[i]).name}\``;

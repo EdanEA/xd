@@ -5,7 +5,7 @@ exports.run = async (message, args) => {
 
   var hexReg = /^#?(?:[0-9a-f]{3}){1,2}$/gi;
   var hexRegEx = new RegExp('^#?(?:[0-9a-f]{3}){1,2}$', 'gi');
-  var msg = args.join(' ')
+  var msg = args.join(' ');
   var oldHex = guilds[message.channel.guild.id].color;
   var hex;
 

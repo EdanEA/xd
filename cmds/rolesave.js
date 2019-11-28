@@ -57,7 +57,7 @@ exports.run = async function(message, args) {
 
     case "stop":
       if(guilds[message.channel.guild.id].mod.roleSaveActive !== true)
-        return message.channel.createMessage(`<@${message.author.id}>, you can't use this unless rolesave is already enabled.`)
+        return message.channel.createMessage(`<@${message.author.id}>, you can't use this unless rolesave is already enabled.`);
 
       await message.channel.createMessage(`<@${message.author.id}>, are you sure you want to disable this? Type \`yes\` to confirm, \`no\` to decline.`);
       var check = await message.channel.awaitMessages(m => m.author.id == message.author.id && m.content.toLowerCase() == "yes" || m.content.toLowerCase() == 'no', { maxMatches: 1, time: 10000 });
