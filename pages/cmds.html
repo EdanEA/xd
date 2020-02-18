@@ -1,0 +1,647 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Edan" />
+
+    <meta name="description" content="Commands for XD Bot." />
+    <meta itemprop="description" content="XD Bot is a Discord bot that, perhaps to your surprise, is not for XD'ing." />
+    <meta itemprop="name" content="xdbot.tk" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://xdbot.tk/cmds" />
+    <meta property="og:image" content="./assets/icons/icon.png" />
+    <meta property="og:title" content="XD Bot" />
+    <meta property="og:description" content="Hahaha, XD Bot. Haha, yes." />
+    <meta property="og:site_name" content="xdbot.tk" />
+
+    <title>Commands</title>
+
+    <link rel="stylesheet" type="text/css" href="../assets/styles/cmds.css" />
+    
+    <script>
+      function getLink() {
+        var a = [
+          "https://i.imgur.com/cHFCJxn.png",
+          "https://i.imgur.com/RWsaGB2.png",
+          "https://i.imgur.com/rv8Qote.png",
+          "https://i.imgur.com/yjctg20.png",
+          "https://i.imgur.com/rXERtdU.png",
+          "https://i.imgur.com/GEv2wza.png"
+        ];
+        
+        return a[Math.floor(Math.random() * a.length)];
+      }
+      
+      function updateAnchor(id) {
+        var e = document.getElementById(id);
+        var l = getLink();
+        
+        e.innerHTML = l;
+        e.href = l;
+      }
+    </script>
+  </head>
+  
+  <body onload=updateAnchor("imgLink")>
+    <div class=left>
+      <a class=button href="./"><h1>Home</h1></a>
+      <a class=button href="#about">:about</a>
+      <a class=button href="#ban">:ban</a>
+      <a class=button href="#beta">:beta</a>
+      <a class=button href="#bj">:blackjack</a>
+      <a class=button href="#cinv">:cinv</a>
+      <a class=button href="#color">:color</a>
+      <a class=button href="#config">:config</a>
+      <a class=button href="#deafen">:deafen</a>
+      <a class=button href="#eval">:eval</a>
+      <a class=button href="#flip">:flip</a>
+      <a class=button href="#gs">:gamestats</a>
+      <a class=button href="#guild">:guild</a>
+      <a class=button href="#help">:help</a>
+      <a class=button href="#invite">:invite</a>
+      <a class=button href="#kick">:kick</a>
+      <a class=button href="#list">:list</a>
+      <a class=button href="#mute">:mute</a>
+      <a class=button href="#pause">:pause</a>
+      <a class=button href="#pick">:pick</a>
+      <a class=button href="#play">:play</a>
+      <a class=button href="#prefix">:prefix</a>
+      <a class=button href="#prune">:prune</a>
+      <a class=button href="#queue">:queue</a>
+      <a class=button href="#qp">:queuepurge</a>
+      <a class=button href="#reload">:reload</a>
+      <a class=button href="#repeat">:repeat</a>
+      <a class=button href="#restart">:restart</a>
+      <a class=button href="#resume">:resume</a>
+      <a class=button href="#rs">:rolesave</a>
+      <a class=button href="#roll">:roll</a>
+      <a class=button href="#rps">:rps</a>
+      <a class=button href="#rr">:rr</a>
+      <a class=button href="#skip">:skip</a>
+      <a class=button href="#staff">:staff</a>
+      <a class=button href="#stop">:stop</a>
+      <a class=button href="#unban">:unban</a>
+      <a class=button href="#user">:user</a>
+      <a class=button href="#volume">:volume</a>
+      <a class=button href="#vs">:voteskip</a>
+    </div>
+    
+    <div class=right>
+      <div id="about" class=command>
+        <h2>:about</h2>
+        
+        <p>
+          Shows information about the bot, its developers, and how you can help with its development.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:about</p>
+        </code><br /> 
+      </div>
+      
+      <div id="ban" class=command>
+        <h2>:ban &lt;user&gt [reason]</h2>
+        
+        <p>
+          Allows a server administrator to ban a guild member.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:ban @Edan</p>
+          <p>:ban @Edan haha, no.</p>
+          <p>:ban 000000000000000000</p>
+        </code><br />
+      </div>
+      
+      <div id="beta" class=command>
+        <h2>:beta &lt;user&gt</h2>
+        
+        <p>
+          Allows any set staff member to add a user to the bot's beta list.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:beta @johnathan</p>
+          <p>:beta 000000000000000000</p>
+        </code><br />
+      </div>
+      
+      <div id="bj" class=command>
+        <h2>:blackjack</h2>
+        
+        <p>
+          A simple blackjack game.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:blackjack</p>
+        </code><br /> 
+      </div>
+      
+      <div id="cinv" class=command>
+        <h2>:cinv &lt;gid&gt;</h2>
+        
+        <p>
+          Allows someone on the staff member list to create an invite to a guild the bot is in.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:cinv 000000000000000000</p>
+        </code><br /> 
+      </div>
+      
+      <div id="color" class=command>
+        <h2>:cinv [color]</h2>
+        
+        <p>
+          Allows a moderator for the current guild to change the embed color for the guild.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:color <span class=comment>// sets the guild's color to the default set in the config</span></p>
+          <p>:color #ff000</p>
+          <p>:color 000</p>
+        </code><br /> 
+      </div>
+      
+      <div id="config" class=command>
+        <h2>:config [-r raw] ([config item] [value])</h2>
+        
+        <p>
+          For updating the configuration for the guild.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:config <span class=comment>// returns an embed, showing the config items, and possible values</span></p>
+          <p>:config -r <span class=comment>// returns a code block, showing the raw JSON config</span</p>
+          <p>:config 8 xd <span class=comment>// sets config option 8 to "xd"; in the basic configuration, this sets the guild's command prefix to "xd"</span></p>
+        </code><br /> 
+      </div>
+      
+      <div id="deafen" class=command>
+        <h2>:deafen &lt;user&gt</h2>
+        
+        <p>
+          Allows a server administrator to deafen and mute a guild member in a voice channel.<br />
+          To undeafen and unmute, the command can be used on the user again.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:deafen @Edan</p>
+          <p>:deafen 000000000000000000</p>
+        </code><br />
+      </div>
+      
+      <div id="eval" class=command>
+        <h2>:eval [-p img] [code]</h2>
+        
+        <p>
+          A way for the set owner of the bot to execute code remotely, as well as update the bot's profile picture.<br />
+          A picture for the profile picture can be supplied either as an attachment, or as a URL.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:eval "oh no";</p>
+          <p>:eval -p <a id=imgLink class=ghostLink target="_blank"></a></p>
+        </code>
+      </div>
+      
+      <div id="flip" class=command>
+        <h2>:flip [side]</h2>
+        
+        <p>
+          "Flips" a coin. You can leave a side, as to have a bet, where you win nothing.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:flip</p>
+          <p>:flip heads</p>
+        </code><br /> 
+      </div>
+      
+      <div id="gs" class=command>
+        <h2>:gamestats [user] [-t game]</h2>
+        
+        <p>
+          Returns an embed, displaying your own, or someone else's stats from playing games.<br />
+          Also allows for the viewing of the people with the top stats, like most plays and such.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:gamestats <span class=comment>// shows your own stats</span></p>
+          <p>:gamestats @Edan <span class=comment>// shows the mentioned person's stats</span></p>
+          <p>:gamestats -t rr <span class=comment>// shows the top ten rr stats</span></p>
+        </code><br /> 
+      </div>
+      
+      <div id="guild" class=command>
+        <h2>:guild [id]</h2>
+        
+        <p>
+          Shows information on the current guild.<br />
+          Allows a bot's staff member to see information on a certain guild.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:guild <span class=comment>// shows the current guild's information</span></p>
+          <p>:guild 000000000000000000 <span class=comment>// shows the provided guild's information</span></p>
+        </code><br />
+      </div>
+      
+      <div id="help" class=command>
+        <h2>:help [command]</h2>
+        
+        <p>
+          Displays the commands for the bot. Can be provided with a command's name, as to get information on that command specifically.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:help <span class=comment>// shows the list of commands</span</p>
+          <p>:help help <span class=comment>// shows information on the help command</span></p>
+        </code><br /> 
+      </div>
+      
+      <div id="invite" class=command>
+        <h2>:invite</h2>
+        
+        <p>
+          Returns an embed, providing invites to the bot, as well as other links relevant to the bot.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:invite</p>
+        </code><br />
+      </div>
+      
+      <div id="kick" class=command>
+        <h2>:kick &lt;user&gt; [reason]</h2>
+        
+        <p>
+          Allows a moderator to kick a user.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:kick @johnathan</p>
+          <p>:kick 000000000000000000 )':<<<</p>
+        </code>
+      </div>
+      
+      <div id="list" class=command>
+        <h2>:list</h2>
+        
+        <p>
+          Lists the items in the guild's music queue.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:list</p>
+        </code><br /> 
+      </div>
+      
+      <div id="mute" class=command>
+        <h2>:mute &lt;user&gt; [length]</h2>
+        
+        <p>
+          Mutes a user from speaking in the guild.<br />
+          A length of time for the mute can be given, or the command can be used again to remove the mute.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:mute @Edan</p>
+          <p>:mute 000000000000000000 1h <span class=comment>// sets time length of the mute to one hour</span></p>
+          <p>:mute @Edan 1d 30m <span class=comment>// mutes the user and sets the length of the mute to on day and thirty minutes</span></p>
+        </code><br /> 
+      </div>
+      
+      <div id="pause" class=command>
+        <h2>:pause</h2>
+        
+        <p>
+          Pauses the guild's music stream.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:pause</p>
+        </code><br /> 
+      </div>
+      
+      <div id="pick" class=command>
+        <h2>:pick &lt;list&gt;</h2>
+        
+        <p>
+          Picks a random item from a given list.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:pick xd, XD, Xd, xD</p>
+        </code><br /> 
+      </div>
+      
+      <div id="play" class=command>
+        <h2>:play</h2>
+        
+        <p>
+          If you're in a voice channel, joins the voice channel and begins playing music in the guild's queue.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:play</p>
+        </code><br />
+      </div>
+      
+      <div id="prefix" class=command>
+        <h2>:prefix [prefix]</h2>
+        
+        <p>
+          Allows a moderator to set the prefix for the guild.<br />
+          If nothing is left, then the prefix is reset.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:prefix ! <span class=comment>// sets the prefix to "!"</span></p>
+          <p>:prefix <span class=comment>// resets the prefix to the default in the config</span></p>
+        </code>
+      </div>
+      
+      <div id="prune" class=command>
+        <h2>:prune &lt;amount&gt; [user]</h2>
+        
+        <p>
+          Allows a moderator to prune messages from the current channel.<br />
+          Can be set to only prune messages from a certain member, if provided with a mention or id.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:prune 100</p>
+          <p>:prune 50 @Edan</p>
+        </code><br /> 
+      </div>
+      
+      <div id="queue" class=command>
+        <h2>:queue &lt;url | search term&gt; [-t platform] [-p playlist]</h2>
+        
+        <p>
+          For adding an item to a guild's music queue.<br />
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:queue la bamba <span class=comment>// searches for "la bamba" on the guild's default platform</span></p>
+          <p>:queue -t soundcloud garbageforlust <span class=comment>// searches soundcloud for "garbage for lust"</span></p>
+          <p>:queue -t youtube -p veteran <span class=comment>// searches youtube for a playlist titled "veteran"</span></p>
+          <p>:queue <a href="https://youtube.com/watch?v=NPThw8DOTJo" class=ghostLink target="_blank">youtube.com/watch?v=NPThw8DOTJo</a></p>
+        </code><br /> 
+      </div>
+      
+      <div id="qp" class=command>
+        <h2>:queuepurge</h2>
+        
+        <p>
+          Allows a moderator to remove all the items from the queue.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:queuepurge</p>
+        </code><br />
+      </div>
+      
+      <div id="reload" class=command>
+        <h2>:reload &lt;command&gt;</h2>
+        
+        <p>
+          Allows a member of the bot's staff to reload a command's cache.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:reload help</p>
+          <p>:reload rr</p>
+        </code><br /> 
+      </div>
+      
+      <div id="repeat" class=command>
+        <h2>:repeat [type]</h2>
+        
+        <p>
+          Used to set the repeat type in the guild.<br />
+          Type can be "single", "guild", "loop", or nothing at all. "single" repeats the currently playing item; "guild" and "loop" repeat the entire queue.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:repeat <span class=comment>// disables repeat in the guild</span></p>
+          <p>:repeat single <span class=comment>// enables single repeat in the guild</span></p>
+          <p>:repeat loop <span class=comment>// enables guild repeat in the guild</span></p>
+        </code><br /> 
+      </div>
+      
+      <div id="restart" class=command>
+        <h2>:restart</h2>
+        
+        <p>
+          Allows the bot owner that is set in the config to restart the bot remotely.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:restart</p>
+        </code><br />
+      </div>
+      
+      <div id="resume" class=command>
+        <h2>:resume</h2>
+        
+        <p>
+          Resumes a paused music stream.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:resume</p>
+        </code><br /> 
+      </div>
+      
+      <div id="rolesave" class=command>
+        <h2>:rolesave [option]</h2>
+        
+        <p>
+          Provides functionality to save roles whenever a member leaves the guild.<br />
+          Options can be "start", "stop", "update", "help", or nothing.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:rolesave <span class=comment>// returns general information on rolesave</p>
+          <p>:rolesave start <span class=comment>// saves the roles in the guild and starts giving them back, when a recognized member joins</span></p>
+          <p>:rolesave stop <span class=comment>// stops giving roles to users whenever they join</span></p>
+          <p>:rolesave update <span class=comment>// updates the saved roles in the guild</span></p>
+          <p>:rolesave help <span class=comment>// gives thorough information on the usage and functionality of rolesave</span></p>
+        </code><br />
+      </div>
+      
+      <div id="roll" class=command>
+        <h2>:roll [sides]</h2>
+        
+        <p>
+          "Rolls" a dice.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:roll <span class=comment>// "rolls" a six-sided dice</span></p>
+          <p>:roll 21 <span class=comment>// "rolls" a twenty-one-sided dice</span></p>
+        </code>
+      </div>
+      
+      <div id="rps" class=command>
+        <h2>:rps &lt;choice&gt;</h2>
+        
+        <p>
+          A simple rock-paper-scissors game.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:rps rock</p>
+        </code><br /> 
+      </div>
+      
+      <div id="rr" class=command>
+        <h2>:rr [bullets] [-s safe]</h2>
+        
+        <p>
+          A Russian Roulette game, that bans you if you lose.<br />
+          bullets is the amount of bullets to simulate. If given the -s argument, the played won't be banned on loss.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:rr <span class=comment>// classic rr; one bullet; very spooky</span></p>
+          <p>:rr 5 <span class=comment>// rr with five bullets--y'know an 83% chance for loss</span></p>
+          <p>:rr 5 -s <span class=comment>// an 83% chance for loss, but no risk of being banned</span></p>
+        </code><br /> 
+      </div>
+      
+      <div id="skip" class=command>
+        <h2>:skip [point] [range]</h2>
+        
+        <p>
+          Skips items from the queue.<br />
+          point is a point in the queue to be removed; range is a range of points to be removed.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:skip <span class=comment>// skips the currently playing item</span></p>
+          <p>:skip 5 <span class=comment>// sets the item at index 5 to be skipped</span></p>
+          <p>:skip 3-6 <span class=comment>// sets items 3, 4, 5, and 6 to be skipped</span></p>
+        </code><br /> 
+      </div>
+      
+      <div id="staff" class=command>
+        <h2>:staff [user] [-l list]</h2>
+        
+        <p>
+          Allows the set bot owner to add a staff member to the staff list.<br />
+          -l argument returns a list of all staff members.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:staff 000000000000000000</p>
+          <p>:staff -l</p>
+        </code><br /> 
+      </div>
+      
+      <div id="stop" class=command>
+        <h2>:stop</h2>
+        
+        <p>
+          Stops the current voice stream and has the bot leave the voice channel--the latter only, if the former is not actively occurring.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:stop</p>
+        </code><br />
+      </div>
+      
+      <div id="unban" class=command>
+        <h2>:unban &lt;user&gt; [reason]</h2>
+        
+        <p>
+          Allows an administrator to unban a banned user.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:unban 000000000000000000 haha, okay.</p>
+        </code>
+      </div>
+      
+      <div id="user" class=command>
+        <h2>:user [user]</h2>
+        
+        <p>
+          Shows information on yourself or another user.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:prune <span class=comment>// shows the message creator's information</span></p>
+          <p>:prune @Edan <span class=comment>// shows information on the mentioned user</span></p>
+        </code><br /> 
+      </div>
+      
+      <div id="volume" class=command>
+        <h2>:volume &lt;value&gt;</h2>
+        
+        <p>
+          Adjusts the volume of the music stream.<br />
+          value is a number from 1-200.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:volume 75</p>
+        </code><br /> 
+      </div>
+      
+      <div id="vs" class=command>
+        <h2>:voteskip</h2>
+        
+        <p>
+          Calls a vote for the current item in the guild to be skipped.
+        </p>
+        
+        <div>Example:</div><br/>
+        <code>
+          <p>:voteskip</p>
+        </code><br />
+      </div>
+    </div>
+  </body>
+</html>

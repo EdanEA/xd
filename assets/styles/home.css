@@ -1,0 +1,98 @@
+html {
+  background-image: url('../icons/ep.png');
+  background-color: #000;
+  background-position: center;
+
+  backdrop-filter: saturate(80%) brightness(200%) blur(1.2px);
+}
+
+body, html {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  font-family: "Courier";
+  overflow: hidden
+}
+
+body {  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+body:before {
+  position: center-left;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.9;
+  z-index: -1;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.content .avatar {
+	margin-right: 15px;
+	transition: transform 2s ease-in-out;
+}
+
+
+.main .title {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid #000;
+  padding: 5px;
+  font-size: 50px;
+  color: #fff;
+  cursor: default;
+  text-shadow: 1px 1px #fff;
+}
+
+.content .links {
+  width: 70%;
+  display: flex;
+  margin-left: 30px;
+  justify-content: space-between;
+}
+
+.content .links .button {
+  text-shadow: 0.5px 0.5px #fff;
+}
+
+.content .links .button {
+  background: rgba(0, 0, 0, 0.5);
+  transition: transform 0.5s ease-in-out;
+  color: #fff;
+  text-decoration: none;
+  padding: 18px 16px;
+  font-weight: 250;
+  font-size: 0.88em;
+  border-radius: 2px;
+  border: 1px solid #000;
+}
+
+.content .links .button:nth-child(even) {
+  margin: 0 10px;
+}
+
+.content .links .button:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
+
+::selection {
+  background-color: #000;
+  color: #fff;
+}
+
+@media only screen and (max-width: 420px) {
+  html, body {
+    min-width: 150%;
+  }
+}

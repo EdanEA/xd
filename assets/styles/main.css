@@ -1,0 +1,27 @@
+html, body {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  font-family: "Courier";
+  color: #fff;
+}
+
+body {
+  background-color: #000;
+}
+
+body:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
