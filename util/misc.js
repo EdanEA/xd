@@ -1,4 +1,6 @@
 const snek = require("snekfetch");
+const fs = require('fs');
+
 module.exports = {
   hasMod(gid, id, client) {
     var g = client.guilds.get(gid);
@@ -13,7 +15,7 @@ module.exports = {
 
     var r = m.highestRole.permissions;
 
-    if(r.has("manageMessages") || r.has("kickMembers") || r.has("banMembers") || r.has("Administrator"))
+    if(r.has("manageMessages") || r.has("kickMembers") || r.has("banMembers") || r.has("administrator"))
       c = true;
     else if(g.ownerID == id)
       c = true;
@@ -42,15 +44,12 @@ module.exports = {
     var g = client.guilds.get(gid);
     var m = g.members.get(id);
 
-    if(!g.id)
-      return null;
-
-    if(!m.id)
+    if(!g.id || !m.id)
       return null;
 
     var r = m.highestRole.permissions;
 
-    if(r.has("banMembers") || r.has("Administrator"))
+    if(r.has("banMembers") || r.has("administrator"))
       return true;
     else if(g.ownerID == id)
       return true;
@@ -230,9 +229,12 @@ module.exports = {
   async postStats(keys, dbl, id, guildCount, shardCount, userCount, vcCount) {
     await dbl.postStats(guildCount, 0, shardCount);
     await snek.post(`https://discord.bots.gg/api/v1/bots/${id}/stats`, {headers: {
-      Authorization: keys.dbgg,
+      "Authorization": keys.dbgg,
       "Content-Type": "application/json"
-    }}).send({guildCount: guildCount, shardCount: shardCount});
+    }, data: {
+      guildCount: guildCount,
+      shardCount: shardCount
+    }});
     await snek.post(`https://botsfordiscord.com/api/bot/${id}`, {headers: {
       Authorization: keys.bfd,
       "Content-Type": "application/json"
@@ -249,5 +251,61 @@ module.exports = {
       Authorization: `Bot ${keys.dbl}`,
       "Content-Type": "application/json"
     }}).send({guilds: guildCount, users: userCount, voice_connections: vcCount});
+  },
+
+  async updateCmdList(cmds) {
+    cmds = {
+      music: [],
+      fun: [],
+      mod: [],
+      misc: [],
+      beta: [],
+      staff: [],
+      owner: []
+    };
+
+    await fs.readdirSync('./cmds').forEach(f => {
+      let name = f.split('.')[0];
+      var i = require(`../cmds/${f}`).info;
+
+      switch(i.type) {
+        case "music":
+          cmds.music.push(name);
+          break;
+
+        case "fun":
+          cmds.fun.push(name);
+          break;
+
+        case "mod":
+          cmds.mod.push(name);
+          break;
+
+        case "staff":
+          cmds.staff.push(name);
+          break;
+
+        case "owner":
+          cmds.owner.push(name);
+          break;
+
+        case "beta":
+          cmds.beta.push(name);
+          break;
+
+        case "misc.":
+          cmds.misc.push(name);
+          break;
+
+        case "help":
+          break;
+
+        default:
+          console.log(`Unindexed command type on ${f}.`);
+          break;
+      }
+    });
+
+    return cmds;
   }
 };

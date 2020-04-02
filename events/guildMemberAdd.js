@@ -11,7 +11,7 @@ module.exports = async (guild, member) => {
         for(var i = 0; i < m.roles.length; i++) member.addRole(m.roles[i]);
     });
 
-  if(!s.logging.logEnabled || !s.logging.logChannel)
+  if(!s.logging.logEnabled || !s.logging.logChannel || (!s.logging.events.includes("memberjoin") && s.logging.events.length > 0))
     return;
 
   if(s.logging.wgb)

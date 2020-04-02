@@ -3,7 +3,7 @@ var l = require('../util/logging.js');
 module.exports = async (message, oldMessage) => {
   var s = guilds[message.channel.guild.id];
 
-  if(!s.logging.logEnabled || !s.logging.logChannel)
+  if(!s.logging.logEnabled || !s.logging.logChannel || (!s.logging.events.includes("messageupdate") && s.logging.events.length > 0))
     return;
 
   if(message.author.id == client.user.id)
@@ -18,8 +18,8 @@ module.exports = async (message, oldMessage) => {
     var e = {
       description: `A message from <@${message.author.id}> was edited in <#${message.channel.id}>.`,
       fields: [
-        {name: "**Old Message:**", value: `\`\`\`${oldMessage.content}\`\`\``},
-        {name: "**New Message:**", value: `\`\`\`${message.content}\`\`\``}
+        {name: "Pre-Edit", value: `\`\`\`${oldMessage.content.split("```").join(' ').trim()}\`\`\``},
+        {name: "Edited", value: `\`\`\`${message.content.split("```").join(' ').trim()}\`\`\``}
       ],
       color: parseInt(`0x${s.color}`),
       footer: {icon_url: message.author.avatarURL, text: "Message Update"},

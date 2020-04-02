@@ -39,7 +39,7 @@ module.exports = (message) => {
 
   var prefix = k.conf.prefix;
 
-  if(!message.content.startsWith(prefix) && !message.content.startsWith(`<@${client.user.id}> `) && !message.content.startsWith(guilds[message.channel.guild.id].prefix))
+  if(!message.content.startsWith(prefix) && !message.content.startsWith(`<@!${client.user.id}> `) && !message.content.startsWith(`<@${client.user.id}> `) && !message.content.startsWith(guilds[message.channel.guild.id].prefix))
     return;
 
   var args = message.content.split(' ').slice(1);
@@ -49,7 +49,10 @@ module.exports = (message) => {
     p = prefix;
   else if(message.content.startsWith(guilds[message.channel.guild.id].prefix))
     p = guilds[message.channel.guild.id].prefix;
-  else {
+  else if(message.content.startsWith(`<@!${client.user.id}> `)){
+    p = `<@!${client.user.id}> `;
+    args = message.content.split(' ').slice(2);
+  } else {
     p = `<@${client.user.id}> `;
     args = message.content.split(' ').slice(2);
   }
@@ -59,10 +62,14 @@ module.exports = (message) => {
   try {
     require(`../cmds/${cmd}`).run(message, args);
   } catch (e) {
-    if(e.message.includes('Cannot find module') || e.message.includes('ENOENT') || e.length > 2000)
-      return;
 
-    console.log(c.red(e.stack));
-    message.channel.createMessage(`\`\`\`${e}\`\`\``);
+    if(!(e.message.includes('Cannot find module') || e.message.includes('ENOENT') || e.length > 2000) && message.author.id == k.conf.ownerID) {
+      console.log(c.red(e.stack));
+
+      if(message.author.id == k.conf.ownerID)
+        return message.channel.createMessage(`\`\`\`${e}\`\`\``);
+      else
+        return message.channel.createMessage(`An error occurred.`);
+    }
   }
 };

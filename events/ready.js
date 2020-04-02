@@ -8,59 +8,7 @@ module.exports = async () => {
     color: 0x63D1F4
   }});
 
-  var cmds = {
-    music: [],
-    fun: [],
-    mod: [],
-    misc: [],
-    beta: [],
-    staff: [],
-    owner: []
-  };
-
-  await fs.readdirSync('./cmds').forEach(f => {
-    let name = f.split('.')[0];
-    var i = require(`../cmds/${f}`).info;
-
-    switch(i.type) {
-      case "music":
-        cmds.music.push(name);
-        break;
-
-      case "fun":
-        cmds.fun.push(name);
-        break;
-
-      case "mod":
-        cmds.mod.push(name);
-        break;
-
-      case "staff":
-        cmds.staff.push(name);
-        break;
-
-      case "owner":
-        cmds.owner.push(name);
-        break;
-
-      case "beta":
-        cmds.beta.push(name);
-        break;
-
-      case "misc.":
-        cmds.misc.push(name);
-        break;
-
-      case "help":
-        break;
-
-      default:
-        console.log(`Unindexed command type on ${f}.`);
-        break;
-    }
-  });
-
-  commands = cmds;
+  commands = await f.updateCmdList(commands);
 
   sql.run('CREATE TABLE IF NOT EXISTS users (id TEXT, rrWins INT, rrLosses INT, rrTotal INT, coinWins INT, coinLosses INT, coinTotal INT, rpsWins INT, rpsLosses INT, rpsTotal INT, rollsTotal INT, bjWins INT, bjLosses INT, bjTotal INT)');
 

@@ -5,25 +5,18 @@ module.exports = {
     await client.createMessage(s.logging.logChannel, {embed: embed});
   },
 
-  async multiLog(guilds, id, embed=null, desc=null) {
-    if(!guilds) return;
+  async multiLog(guildList, id, embed, guilds) {
+    if(guildList.length <= 0)
+      return;
 
-    for(var g of guilds) {
-      let s = guilds[g];
+    for(var g of guildList) {
+      var s = guilds[g];
 
-      if(!s.logging.logEnabled || !s.logging.logChannel) continue;
+      if(!s.logging.logEnabled || !s.logging.logChannel || (!s.logging.events.includes("memberupdate") && s.logging.events.length > 0))
+        continue;
 
-      if(embed !== null) {
-        embed.color = parseInt(`0x${s.color}`);
-
-        await client.createMessage(s.logging.logChannel, {embed: embed});
-      } else if(embed == null && desc !== null) {
-        await client.createMessage(s.logging.logChannel, {embed: {
-          color: parseInt(`0x${s.color}`),
-          description: desc,
-          footer: {icon_url: client.guilds.get(g).iconURL, text: "User Update"}
-        }});
-      }
+      embed.color = parseInt(`0x${s.color}`);
+      await client.createMessage(s.logging.logChannel, {embed: embed});
     }
 
     return;

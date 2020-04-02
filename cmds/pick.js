@@ -1,5 +1,5 @@
 exports.run = function(message, args) {
-  var l = new RegExp(",\ ?", "g");
+  var l = new RegExp(", ?", "g");
   var list = args.join(' ').split(l);
 
   return message.channel.createMessage(`I pick this one: \`${list[Math.floor(Math.random() * list.length)]}\`.`);

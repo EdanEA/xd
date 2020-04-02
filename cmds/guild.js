@@ -46,7 +46,7 @@ exports.run = async (message, args) => {
     };
 
     return e;
-  };
+  }
 
   var idReg = new RegExp("[0-9]{18}", "g");
 

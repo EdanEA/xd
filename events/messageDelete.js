@@ -11,11 +11,11 @@ module.exports = async (m) => {
     timestamp: new Date().toISOString()
   };
 
-  if(!s.logging.logEnabled || !s.logging.logChannel)
+  if(!s.logging.logEnabled || !s.logging.logChannel || (!s.logging.events.includes("messagedelete") && s.logging.events.length > 0))
     return;
 
   if(m.content)
-    e['fields'] = [{name: "Content", value: `\`\`\`${m.content}\`\`\``}];
+    e['fields'] = [{name: "Content", value: `\`\`\`${m.content.split("```").join(" ").trim()}\`\`\``}];
 
   e['footer']['icon_url'] = !m.author ? 'https://discordapp.com/assets/dd4dbc0016779df1378e7812eabaa04d.png' : (!m.author.avatarURL ? m.author.defaultAvatar : m.author.avatarURL);
 
@@ -26,7 +26,7 @@ module.exports = async (m) => {
 
     if(typeof m.author !== "undefined") {
       info = `By: <@${m.author.id}>`;
-      e['description'] += `\n\nCreated by: ${m.author.username}#${m.author.discriminator}`;
+      e['description'] += `\n\nCreated By: ${m.author.username}#${m.author.discriminator}`;
     }
   }
 

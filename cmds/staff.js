@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 exports.run = async (message, args) => {
   if(message.author.id !== k.conf.ownerID)
     return;
@@ -14,11 +16,14 @@ exports.run = async (message, args) => {
 
   if(lReg.test(args.join(' ')) || args.length == 0) {
     var list = "";
-    for(var i in k.conf.staff) {
-      var user = client.users.get(i);
-      var u = user ? `${user.username}#${user.discriminator}` : i;
 
-      list += user + "\n";
+    for(var i of k.conf.staff) {
+      console.log(k.conf.staff)
+
+      var user = client.users.get(i);
+      var u = user.id ? `${user.username}#${user.discriminator}` : i;
+
+      list += u + "\n";
     }
 
     return message.channel.createMessage(`\`\`\`${list}\`\`\``);
@@ -37,14 +42,15 @@ exports.run = async (message, args) => {
   }
 
   var user = client.users.get(id) ? client.users.get(id) : id;
+  var tag = client.users.get(id) ? `\`${user.username}#${user.discriminator}\`` : id;
 
   if(!removed) {
     k.conf.staff.push(id);
-    message.channel.createMessage(`Successfully added \`${user.username}#${user.disciminator}\` to the staff list.`);
+    message.channel.createMessage(`Successfully added ${tag} to the staff list.`);
   } else
-    message.channel.createMessage(`Removed ${user} from the staff list.`);
+    message.channel.createMessage(`Removed ${tag} from the staff list.`);
 
-  await writeAsync('../storage/stuff.json', k);
+  await writeAsync('./storage/stuff.json', k);
 
   return;
 };

@@ -1,7 +1,8 @@
 var l = require('../util/logging.js');
 
 module.exports = async (messages) => {
-  if(messages.length <= 0) return;
+  if(messages.length <= 0)
+    return;
 
   try {
     var s = guilds[messages[0].channel.guild.id];
@@ -16,7 +17,7 @@ module.exports = async (messages) => {
     timestamp: new Date().toISOString()
   };
 
-  if(!s.logging.logEnabled || !s.logging.logChannel)
+  if(!s.logging.logEnabled || !s.logging.logChannel || (!s.logging.events.includes("messagedelete") && s.logging.events.length > 0))
     return;
 
   await l.log(e, s);

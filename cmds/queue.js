@@ -110,6 +110,8 @@ exports.run = async (message, args) => {
       });
     }
   } else if(u.pathname.split('/')[0] == "soundcloud.com" || u.host == "soundcloud.com") {
+    return message.channel.createMessage(`<@${message.author.id}>, currently we're having issues using the Soundcloud API and cannot stream tracks from it. Please instead use YouTube.`);
+
     if(!u.href.includes('sets') && !u.href.includes("playlists")) {
       var info;
 
@@ -137,13 +139,13 @@ exports.run = async (message, args) => {
     var ids = [];
 
     if(!t)
-      t = g.music.defaultSearch;
+      t = "youtube"; //t = g.music.defaultSearch;
     else if(t.split(' ')[1] == "sc" || t.split(' ')[1] == "soundcloud")
-      t = "soundcloud";
+      t = "youtube"; //t = "soundcloud";
     else if(t.split(' ')[1] == "yt" || t.split(' ')[1] == "youtube")
       t = "youtube";
     else
-      t = g.music.defaultSearch;
+      t = "youtube"; //t = g.music.defaultSearch;
 
     if(!c)
       c = g.music.defaultSearchCount;
@@ -170,7 +172,7 @@ exports.run = async (message, args) => {
 
     await client.createMessage(message.channel.id, {embed: e.embed});
 
-    var choice = await message.channel.awaitMessages(m => m.author.id == message.author.id && parseInt(m.content) !== NaN, { maxMatches: 1, time: 15000 });
+    var choice = await message.channel.awaitMessages(m => m.author.id == message.author.id && !isNaN(parseInt(m.content)), { maxMatches: 1, time: 15000 });
 
     if(!choice[0]) return message.channel.createMessage(`Exitting, as no (valid) option was given.`);
     else {

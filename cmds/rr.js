@@ -12,7 +12,7 @@ exports.run = async (message, args) => {
     a = 1;
 
   var replies = [
-    `Good job beating that ${(a / 6).toFixed(2)}% of getting banned.`,
+    `Good job beating that ${(a / 6 * 100).toFixed(2)}% of getting banned.`,
     "Wow-wee, I suppose you get to survive.",
     "How'd you win? That's not fair! ))':<",
     "I guess you win. ¯\\_(ツ)_/¯",
@@ -20,16 +20,18 @@ exports.run = async (message, args) => {
   ];
 
   var banReasons = [
-    `Did you see <@${message.author.id}>'s brains spray across the wall, like a geizer of grey matter and blood? No? Should've been there, man.`,
+    `Did you see <@${message.author.id}>'s brains spray across the wall, like a geizer of grey matter and blood? No? Should've been there, man--best thing I've seen in three years..`,
     `I can't believe how terrible <@${message.author.id}> is at Russian Roulette. Like, they lost to a ${(a/6).toFixed(2)}% chance. Like, really--how?`,
     "D:",
     "D`:",
-    "I WAS CONCIEVED BY MY DISEASE",
-    `"I WAS CONCIEVED BY MY DISEASE," ${message.author.username} thought, before pulling the trigger--hoping it would suddenly end their life. Little did they know, this time it would actually occur.`
+    ":(",
+    "):",
+    ")':",
+    ":'("
   ];
 
   var reply = replies[Math.floor(Math.random() * replies.length)];
-  var reason = banReasons[Math.floor(Math.random * banReasons.length)];
+  var reason = banReasons[Math.floor(Math.random() * banReasons.length)];
 
   const p = Math.floor(Math.random() * 5);
   var b;

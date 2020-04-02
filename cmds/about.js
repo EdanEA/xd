@@ -12,6 +12,10 @@ exports.run = (message, args) => {
       {
         name: "Ways to help",
         value: "You can help with the bot's development by contributing to the [GitHub](https://github.com/edanea/xd). If there's any bugs you notice, you can report them with the `report` command."
+      },
+      {
+        name: "Website, website, website?!",
+        value: "[Website](https://edanea.github.io/xd)."
       }
     ],
     color: parseInt(`0x${guilds[message.channel.guild.id].color}`),

@@ -20,7 +20,7 @@ exports.run = (message, args) => {
 
 exports.info = {
   usage: ":roll [sides]",
-  args: "[sides]: The number of sides for the dice. \`6\` by default.",
+  args: "[sides]: The number of sides for the dice. `6` by default.",
   examples: ":roll\n:roll 100\n:roll 8",
   description: "Lets you \"roll\" a dice, with however many sides you want.",
   type: "fun"

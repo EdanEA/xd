@@ -1,6 +1,13 @@
+var fs = require('fs');
+
 exports.run = async (message, args) => {
   if(!k.conf.staff.includes(message.author.id) && k.conf.ownerID !== message.author.id)
     return;
+
+  async function writeAsync(path, object) {
+    await fs.writeFileSync(path, JSON.stringify(object, null, 2), 'utf8');
+    console.log(`Successfully logged ${Object.keys(object).length} items in ${path}.`);
+  }
 
   var idReg = new RegExp("[0-9]{18}", "g");
   var removed = false;
@@ -11,19 +18,21 @@ exports.run = async (message, args) => {
   else
     id = args.join(' ').match(idReg)[0];
 
-  for(var i = 0; i < k.conf.beta.length; i++) {
-    if(k.conf.beta[i] == id) {
-      k.conf.beta.splice(i, 1);
-      removed = true;
-    }
-  }
+  if(k.conf.beta.includes(id)) {
+    k.conf.beta.splice(k.conf.beta.indexOf(id), 1);
+    removed = true;
+  } else
+    k.conf.beta.push(id);
 
-  k.conf.push(id);
+
+  var tag = client.users.get(id) ? `\`${client.users.get(id).username}#${client.users.get(id).discriminator}\`` : id;
+
+  await writeAsync('./storage/stuff.json', k);
 
   if(removed)
-    return message.channel.createMessage(`<@${message.author.id}>, I removed <@${id}> from the beta user list.`);
+    return message.channel.createMessage(`<@${message.author.id}>, I removed ${tag} from the beta user list.`);
   else
-    return message.channel.createMessage(`<@${message.author.id}>, I added <@${id}> to the beta user list.`);
+    return message.channel.createMessage(`<@${message.author.id}>, I added ${tag} to the beta user list.`);
 };
 
 exports.info = {

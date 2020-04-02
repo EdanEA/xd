@@ -4,21 +4,23 @@ module.exports = async (user, oldUser) => {
   if(!user || !oldUser)
     return;
 
-  var guilds = [];
-  var url = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=1024`;
+  var gList = [];
   var e = {
-    footer: {icon_url: url, text: "User Update"}
+    footer: {icon_url: user.avatarURL, text: "User Update"}
   };
 
   if(user.username !== oldUser.username || user.discriminator !== oldUser.discriminator)
-    e['description'] = `\`${oldUser.username}#${oldUser.discriminator}\` is now known as \`${user.username}#${user.discriminator}\`.`;
+    e.description = `<@${user.id}> updated their account name from \`${oldUser.username}#${oldUser.discriminator}\`, to \`${user.username}#${user.discriminator}\`.`;
   else
     return;
 
+  console.log(embed);
+  console.log()
+
   client.guilds.forEach(g => {
     if(g.members.has(user.id))
-      guilds.push(g);
+      gList.push(g.id);
   });
 
-  await l.multiLog(guilds, user.id, e);
+  await l.multiLog(gList, user.id, e, guilds);
 };

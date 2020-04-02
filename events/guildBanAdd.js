@@ -4,12 +4,12 @@ module.exports = async (guild, user) => {
   var s = guilds[guild.id];
   var e;
 
-  if(!s.logging.logEnabled || !s.logging.logChannel)
+  if(!s.logging.logEnabled || !s.logging.logChannel || (!s.logging.events.includes("ban") && s.logging.events.length > 0))
     return;
 
   await l.getBan(user.id, guild.id).then(b => {
     e = {
-      description: `**${user.username}#${user.discriminator}** (${user.id}) was banned.\nBy: <@${b.staff}>`,
+      description: `**${user.username}#${user.discriminator}** (${user.id}) was banned.\n\nBanned By: <@${b.staff}>`,
       fields: [{name: `**Reason:**`, value: `\`\`\`${b.reason}\`\`\``, inline: true}],
       color: 0xff0000,
       timestamp: new Date().toISOString(),

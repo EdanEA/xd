@@ -7,7 +7,7 @@ module.exports = async (guild, member, oldMember) => {
     color: parseInt(`0x${s.color}`)
   };
 
-  if(!s.logging.logEnabled || !s.logging.logChannel)
+  if(!s.logging.logEnabled || !s.logging.logChannel || (!s.logging.events.includes("memberupdate") && s.logging.events.length > 0))
     return;
 
   if(oldMember.nick !== member.nick) {
@@ -17,7 +17,7 @@ module.exports = async (guild, member, oldMember) => {
     if(oldMember.nick && !member.nick)
       e['description'] = `<@${member.id}> has removed their nickname.`;
     else if(oldMember.nick && member.nick)
-      e['description'] = `\`${oldMember.nick}\`'s nickname is now \`${member.nick}\`.`;
+      e['description'] = `<@${member.id}> changed their nickname from \`${oldMember.nick}\`, to \`${member.nick}\`.`;
     else if(!oldMember.nick && member.nick)
       e['description'] = `<@${member.id}>'s nickname is now \`${member.nick}\`.`;
   } else

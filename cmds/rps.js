@@ -119,7 +119,7 @@ exports.run = (message, args) => {
 
 exports.info = {
   usage: ":rps <choice>",
-  args: "<choice>: Your choice, e.g. \`rock\`.",
+  args: "<choice>: Your choice, e.g. `rock`.",
   examples: ":rps paper\n:rps scissors\n:rps p\n:rps r",
   description: "Allows you to play Rock-Paper-Scissors with the bot.",
   type: "fun"
