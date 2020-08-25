@@ -2,22 +2,33 @@ const snek = require("snekfetch");
 const fs = require('fs');
 
 module.exports = {
-  hasMod(gid, id, client) {
-    var g = client.guilds.get(gid);
-    var m = g.members.get(id);
+  hasMod(member, guild) {
     var c = false;
 
-    if(!g.id)
+    if(!guild || !member)
       return null;
 
-    if(!m.id)
-      return null;
+    var r = member.highestRole.permissions;
 
-    var r = m.highestRole.permissions;
-
-    if(r.has("manageMessages") || r.has("kickMembers") || r.has("banMembers") || r.has("administrator"))
+    if(r.has("manageMessages") || r.has("kickMembers") || this.hasAdmin(member, guild))
       c = true;
-    else if(g.ownerID == id)
+    else if(guild.ownerID == member.id)
+      c = true;
+
+    return c;
+  },
+
+  hasAdmin(member, guild) {
+    var c = false;
+
+    if(!guild || !member)
+      return null;
+
+    var r = member.highestRole.permissions;
+
+    if(r.has("banMembers") || r.has("administrator"))
+      c = true;
+    else if(guild.ownerId == member.id)
       c = true;
 
     return c;
@@ -38,23 +49,6 @@ module.exports = {
       return false;
     else
       return true;
-  },
-
-  hasAdmin(gid, id, client) {
-    var g = client.guilds.get(gid);
-    var m = g.members.get(id);
-
-    if(!g.id || !m.id)
-      return null;
-
-    var r = m.highestRole.permissions;
-
-    if(r.has("banMembers") || r.has("administrator"))
-      return true;
-    else if(g.ownerID == id)
-      return true;
-
-    return false;
   },
 
   async muteMember(gid, id, minutes, client, conf) {
@@ -170,6 +164,9 @@ module.exports = {
       }
 
       var c = await client.guilds.get(vc.id).channels.get(vc.channelID);
+      if(!c)
+        return;
+
       if(c.voiceMembers.size == 1) {
         await queue[vc.id].unshift(queue[vc.id][0]);
         await client.leaveVoiceChannel(c.id);

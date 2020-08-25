@@ -23,7 +23,7 @@ exports.run = async (message, args) => {
   if(args[0] == "-r")
     return message.channel.createMessage(`\`\`\`json\n${JSON.stringify(g, undefined, 2)}\`\`\``);
 
-  if(!f.hasAdmin(message.channel.guild.id, message.author.id, client))
+  if(!f.hasAdmin(message.member, message.channel.guild))
     return message.channel.createMessage(`You don't have permission to change the configuration.`);
 
   switch(parseInt(args[0])) {

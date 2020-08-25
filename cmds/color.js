@@ -1,6 +1,6 @@
 var f = require('../util/misc.js');
 exports.run = async (message, args) => {
-  if(!f.hasMod(message.channel.guild.id, message.author.id, client))
+  if(!f.hasMod(message.member, message.guild))
     return;
 
   var hexReg = /^#?(?:[0-9a-f]{3}){1,2}$/gi;

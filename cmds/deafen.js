@@ -1,12 +1,12 @@
 var f = require('../util/misc.js');
 exports.run = (message, args) => {
-  if(!f.hasMod(message.channel.guild.id, message.author.id, client))
+  if(!f.hasMod(message.member, message.channel.guild))
     return message.channel.createMessage(`<@${message.author.id}>, you do not have sufficient permissions to use this command.`);
 
   var msg = args.join(' ');
   var deaf = false;
   var id;
-  
+
   var idReg = /[0-9]{18}/g;
   var idRegex = new RegExp('[0-9]{18}', 'g');
 

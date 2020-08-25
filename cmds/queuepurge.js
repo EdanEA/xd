@@ -1,12 +1,15 @@
 var f = require('../util/misc.js');
-exports.run = (message, args) => {
-  if(!f.hasMod(message.channel.guild.id, message.author.id, client))
+
+exports.run = async (message, args) => {
+  var g = guilds[message.channel.guild.id];
+
+  if(!f.hasMod(message.member, message.channel.guild) &&!g.music.anySkip)
     return;
 
   queue[message.channel.guild.id] = [];
 
-  if(client.voiceConnections.get(message.channel.guild.id) && client.voiceConnections.get(message.channel.guild.id).play)
-    client.voiceConnections.get(message.channel.guild.id).stopPlaying();
+  if(client.voiceConnections.get(message.channel.guild.id) && client.voiceConnections.get(message.channel.guild.id).playing)
+    await client.voiceConnections.get(message.channel.guild.id).stop();
 
   return message.channel.createMessage(`I successfully purged the queue.`);
 };

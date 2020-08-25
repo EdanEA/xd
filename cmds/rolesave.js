@@ -26,8 +26,8 @@ exports.run = async function(message, args) {
 
   if(!args[0])
     return message.channel.createMessage(`I need arguments!`);
-    
-  if(!f.hasAdmin(message.channel.guild.id, message.author.id, client))
+
+  if(!f.hasAdmin(message.member, message.channel.guild))
     return message.channel.createMessage(`<@${message.author.id}>, oh no, the baby boi can't use the big boi command! Get outta here, y'loser. smh`);
 
   switch(args[0].toLowerCase()) {

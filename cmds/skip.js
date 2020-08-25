@@ -1,21 +1,24 @@
 var f = require('../util/misc.js');
-exports.run = async function(message, args) {
-  if(queue[message.channel.guild.id].length <= 0)
-    return message.channel.createMessage(`<@${message.author.id}>, I can't skip, as there's nothing in the queue.`);
 
-  if(!f.hasMod(message.channel.guild.id, message.author.id, client))
+exports.run = async function(message, args) {
+  var g = guilds[message.channel.guild.id];
+  var q = queue[message.channel.guild.id];
+
+  if(q.length <= 0)
+    return message.channel.createMessage(`I cannot skip, as there's nothing in the queue.`);
+
+  if(!f.hasMod(message.member, message.channel.guild) && !g.music.anySkip && q[0].requester !== message.author.id)
     return message.channel.createMessage(`<@${message.author.id}>, you do not have valid permission to skip.`);
 
   if(!args.length) {
-    if(client.voiceConnections.get(message.channel.guild.id) && client.voiceConnections.get(message.channel.guild.id).playing)
-      await client.voiceConnections.get(message.channel.guild.id).stopPlaying();
-    else
-      queue[message.channel.guild.id].shift();
+    if(client.voiceConnections.get(message.channel.guild.id) && client.voiceConnections.get(message.channel.guild.id).playing) {
+      q[0].skip = true;
+      await client.voiceConnections.get(message.channel.guild.id).stop();
+    } else
+      q.shift();
   } else {
     var reg = /[0-9]+/g;
     var points = [...args.join(' ').match(reg)];
-
-    console.log(points);
 
     if(!points)
       return;
@@ -26,42 +29,38 @@ exports.run = async function(message, args) {
     }
 
     if(points.length == 1) {
-      if(parseInt(points[0]) > queue[message.channel.guild.id].length)
-        return message.channel.createMessage(`<@${message.author.id}>, the presented range is larger than the queue`);
+      points[0] = parseInt(points[0]);
+      if(points[0] > q.length)
+        return message.channel.createMessage(`<@${message.author.id}>, the given range is larger than the queue.`);
 
-      if(parseInt(points[0]) == 1 && client.voiceConnections.get(message.channel.guild.id) && client.voiceConnections.get(message.channel.guild.id).playing)
-        client.voiceConnections.get(message.channel.guild.id).stopPlaying();
+      if(points[0] == 1 && client.voiceConnections.get(message.channel.guild.id) && client.voiceConnections.get(message.channel.guild.id).playing)
+        client.voiceConnections.get(message.channel.guild.id).stop();
       else
-        queue[message.channel.guild.id].shift();
+        q.shift();
 
       if(client.voiceConnections.get(message.channel.guild.id) && client.voiceConnections.get(message.channel.guild.id).playing) {
-        for(var i = 0; i < (parseInt(points[0]) - 2); i++) {
-          queue[message.channel.guild.id][i].skip = true;
+        for(var i = 0; i < (points[0] - 2); i++) {
+          q[i].skip = true;
         }
 
-        client.voiceConnections.get(message.channel.guild.id).stopPlaying();
-      }
-
-      else
-        queue[message.channel.guild.id].splice(0, (parseInt(points[0]) - 2));
+        client.voiceConnections.get(message.channel.guild.id).stop();
+      } else
+        q.splice(0, (points[0] - 2));
 
       return message.channel.createMessage(`Successfully skipped to position \`${points[0]}\`.`);
     } else {
-      if((points.length > 2 && points[1] > queue[message.channel.guild.id].length))
-        return message.channel.createMessage(`<@${message.author.id}>, the presented range is larger than the queue`);
+      points[1] = parseInt(points[1]);
 
-      if(client.voiceConnections.get(message.channel.guild.id) && client.voiceConnections.get(message.channel.guild.id).playing) {
-        for(var i = parseInt(points[0]) - 1; i < (parseInt(points[1]) - parseInt(points[0])); i++) {
-          queue[message.channel.guild.id][i - 1].skip = true;
-        }
+      if((points[1] > q.length))
+        return message.channel.createMessage(`<@${message.author.id}>, the given range is larger than the queue.`);
 
-        client.voiceConnections.get(message.channel.guild.id).stopPlaying();
+      q.splice(points[0] - 1, points[1] - points[0] + 1);
+
+      if(points[0] == 1 && client.voiceConnections.get(message.channel.guild.id) && client.voiceConnections.get(message.channel.guild.id).playing) {
+        await client.voiceConnections.get(message.channel.guild.id).stop();
       }
 
-      else
-        queue[message.channel.guild.id].splice(parseInt(points[0]) - 1, (parseInt(points[1]) - parseInt(points[0])) + 1);
-
-      return message.channel.createMessage(`Successfully removed \`${(parseInt(points[1]) - parseInt(points[0]) + 1)}\` items in the queue.`);
+      return message.channel.createMessage(`Successfully removed \`${(parseInt(points[1]) - parseInt(points[0]) + 1)}\` items from the queue.`);
     }
   }
 };

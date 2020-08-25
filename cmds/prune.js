@@ -1,7 +1,10 @@
 var f = require('../util/misc.js');
 exports.run = async (message, args) => {
   if(!args[0])
-    return message.channel.createMessage(`<@${message.author.id}>, `);
+    return require('./help.js').run(message, ["prune"]);
+
+  if(!f.hasMod(message.member, message.channel.guild))
+    return message.channel.createMessage(`<@${message.author.id}>, you lack sufficient permission to use this command.`);
 
   var u = message.mentions;
   var a;
@@ -22,17 +25,20 @@ exports.run = async (message, args) => {
         }, 15000);
       });
     } else {
-      var reg = /<@[0-9]{18}>/;
+      var reg = new RegExp("<@!?[0-9]{18}>", "g");
       var msg = args.join(' ').replace(reg, "");
       a = parseInt(msg);
 
       var messages = await message.channel.getMessages(100);
       messages = messages.filter(m => m.author.id == u[0].id);
 
+      if(messages.length >= a)
+        messages = messages.slice(0, a)
+
       var ids = [];
-      messages.forEach(m => {
+      for(var m of messages) {
         ids.push(m.id);
-      });
+      }
 
       await message.channel.deleteMessages(ids);
       message.channel.createMessage(`Successfully deleted ${ids.length} messages from ${u[0].username}#${u[0].discriminator}, in \`#${message.channel.name}\``).then(m => {

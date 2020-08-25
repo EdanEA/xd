@@ -1,21 +1,18 @@
-exports.run = async (message, args) => {
-  var vc = client.voiceConnections.get(message.channel.guild.id);
+exports.run = (message, args) => {
+  const p = client.voiceConnections.get(message.channel.guild.id);
 
-  if(!vc)
-    return message.channel.createMessage(`<@${message.author.id}>, there is no audio stream to resume.`);
+  if(!p || !p.paused)
+    return;
 
-  if(!vc.paused)
-    return message.channel.createMessage(`<@${message.author.id}>, the audio stream is currently playing.`);
+  p.togglePlayback();
 
-  await vc.resume();
-
-  return message.channel.createMessage(`Resumed the audio stream.`);
+  return message.channel.createMessage(`Resumed.`);
 };
 
 exports.info = {
-  usage: ":resume",
+  usage: "resume%",
   args: "None.",
-  description: "Continues a paused audio stream.",
-  examples: ":resume",
+  description: "For resuming a paused voice channel stream.",
+  examples: "resume%",
   type: "music"
 };

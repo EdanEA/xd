@@ -8,8 +8,10 @@ exports.run = async (message, args) => {
   var a = parseInt(args.join(' '));
   var c = f.compare(message.channel.guild.members.get(client.user.id), message.member);
 
-  if(!a)
+  if(!a || a > 5 || a < 1)
     a = 1;
+
+  console.log(a);
 
   var replies = [
     `Good job beating that ${(a / 6 * 100).toFixed(2)}% of getting banned.`,
@@ -21,7 +23,7 @@ exports.run = async (message, args) => {
 
   var banReasons = [
     `Did you see <@${message.author.id}>'s brains spray across the wall, like a geizer of grey matter and blood? No? Should've been there, man--best thing I've seen in three years..`,
-    `I can't believe how terrible <@${message.author.id}> is at Russian Roulette. Like, they lost to a ${(a/6).toFixed(2)}% chance. Like, really--how?`,
+    `I can't believe how terrible <@${message.author.id}> is at Russian Roulette. Like, they lost to a ${(a / 6 * 100).toFixed(2)}% chance. Like, really--how?`,
     "D:",
     "D`:",
     ":(",

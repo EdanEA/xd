@@ -1,71 +1,102 @@
-const ytk = require('../storage/stuff.json').keys.ytk;
-const ytdl = require('ytdl-core');
+const k = require('../storage/stuff.json');
+const ytk = k.keys.ytk;
 const snek = require('snekfetch');
+const moment = require('moment');
+require('moment-duration-format');
 
 module.exports = {
-  async info(id, type=false) {
-    if(!type) {
-      var i = await snek.get("https://www.googleapis.com/youtube/v3/videos").query({ part: 'id,snippet,status,contentDetails', id: id, key: ytk }).end();
+  async search(query, playlist=false, results=3) {
+    var type = playlist ? 'playlist' : 'video';
 
-      if(!i.body.items[0])
-        return null;
-      else {
-        let dur = moment.duration(i.body.items[0].contentDetails.duration, moment.ISO_8601).asSeconds();
-        return { id: i.body.items[0].id, title: i.body.items[0].snippet.title, author: i.body.items[0].snippet.channelTitle, duration: dur, type: 0, img: `https://img.youtube.com/vi/${i.body.items[0].id}/0.jpg` };
-      }
-    } else {
-      var i = await snek.get("https://www.googleapis.com/youtube/v3/playlists").query({ part: 'id,snippet,status,contentDetails', id: id, key: ytk }).end();
+    var res = await snek.get(`https://www.googleapis.com/youtube/v3/search`).query({
+      part: 'id,snippet',
+      maxResults: `${results}`,
+      type: type,
+      q: query,
+      key: ytk
+    }).catch(err => {
+      if(err)
+        throw err;
+    });
 
-      if(!i.body.items[0])
-        return null;
-      else
-        return { id: i.body.items[0].id, title: i.body.items[0].snippet.title, author: i.body.items[0].snippet.channelTitle, length: i.body.items[0].contentDetails.itemCount };
-    }
-  },
-
-  async search(query,type=0,amount=3) {
-    if(type == 0)
-      var results = await snek.get("https://www.googleapis.com/youtube/v3/search").query({ part: 'id,snippet', maxResults: `${amount}`, type: 'video', q: query, key: ytk }).catch(() => { return []; });
-    else if (type == 1)
-      var results = await snek.get("https://www.googleapis.com/youtube/v3/search").query({ part: 'id,snippet', maxResults: `${amount}`, type: 'playlist', q: query, key: ytk }).catch(() => { return []; });
-
-    if(!results.body.items[0])
+    if(!res.body.items[0])
       return [];
-    else
-      return results.body.items;
+
+    var o = [];
+
+    for(var t of res.body.items) {
+      let id = playlist ? t.id.playlistId : t.id.videoId;
+      await this.getInfo(id, playlist).then(async r => {
+        if(!r)
+          return;
+
+        o.push(r);
+      });
+    }
+
+    return o;
   },
 
-  async playlist(id, user, channel=null, typing=false) {
-    var type = typing;
-    var videos = [];
+  async getInfo(id, playlist=false) {
+    var t = playlist ? 'playlists' : 'videos';
 
-    if(type) {
+    var res = await snek.get(`https://www.googleapis.com/youtube/v3/${t}`).query({
+      part: 'id,snippet,status,contentDetails',
+      id: id,
+      key: ytk
+    }).end();
+
+    if(!res.body.items[0])
+      return null;
+
+    let i = res.body.items[0];
+    var o = { id: i.id, title: i.snippet.title, author: i.snippet.channelTitle };
+
+    if(playlist)
+      o.length = i.contentDetails.itemCount;
+    else {
+      let dur = moment.duration(i.contentDetails.duration, moment.ISO_8601).asSeconds();
+      o.duration = dur;
+      o.type = 0;
+      o.img = `https://img.youtube.com/vi/${i.id}/0.jpg`;
+    }
+
+    return o;
+  },
+
+  async getPlaylistItems(id, channel=null) {
+    var res = await snek.get(`https://www.googleapis.com/youtube/v3/playlistItems`).query({
+      part: 'id,snippet,status',
+      playlistId: id,
+      key: ytk,
+      maxResults: 50
+    }).end();
+
+    if(!res.body.items[0])
+      return null;
+
+    var typing = true;
+    if(channel !== null)
       setInterval(() => {
-        if(type)
+        if(typing)
           channel.sendTyping();
         else
           clearInterval();
-      }, 1000);
-    }
+      }, 1e3);
 
-    var i = await snek.get('https://www.googleapis.com/youtube/v3/playlistItems').query({ maxResults: '50', part: 'id,snippet,status', playlistId: id, key: ytk });
+    var videos = [];
 
-    if(!i.body.items[0])
-      return videos;
-
-    for(var video of i.body.items) {
-      if(!video.status || !video.status.privacyStatus || video.status.privacyStatus == "private")
+    for(var v of res.body.items) {
+      if(!v.status || !v.status.privacyStatus || v.status.privacyStatus == "private")
         continue;
 
-      var dur = await snek.get('https://www.googleapis.com/youtube/v3/videos').query({ part: 'contentDetails', id: video.snippet.resourceId.videoId, key: ytk }).end();
-      if(!dur.body.items[0])
-        continue;
-
-      let d = moment.duration(dur.body.items[0].contentDetails.duration, moment.ISO_8601).asSeconds();
-      videos.push({ id: video.snippet.resourceId.videoId, title: video.snippet.title, author: video.snippet.channelTitle, duration: d, requester: user, type: 0, img: `https://img.youtube.com/vi/${video.snippet.resourceId.videoId}/0.jpg` });
+      await this.getInfo(v.snippet.resourceId.videoId).then(t => {
+        videos.push(t);
+      });
     }
 
-    type = false;
+    typing = false;
+
     return videos;
   }
 };

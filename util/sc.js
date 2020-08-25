@@ -1,85 +1,101 @@
-var sc = require('../storage/stuff.json').keys.scID;
-var snek = require('snekfetch');
+const SC = require('soundcloud-v2-api');
+const snek = require('snekfetch');
+const scID = require('../storage/stuff.json').keys.scID;
+
+SC.init({ clientId: scID });
 
 module.exports = {
-  async info(url=null, id=null, pid=null) {
-    if(id !== null) {
-      var g = await snek.get(`https://api.soundcloud.com/tracks/${id}?client_id=${sc}`);
-      var dur = Math.round(g.body.duration / 1000);
+  async search(query, playlist=false, results=3) {
+    var type = playlist ? 'playlists' : 'tracks';
+    var tracks;
 
-      var body = g.body;
+    await SC.get(`/search/${type}`, {
+      q: query,
+      limit: results
+    }).then(async r => {
+      tracks = r.collection;
+    });
 
-      if(!body || !body.id)
-        return {};
+    if(tracks.length == 0)
+      return null;
 
-      return { title: body.title, id: body.id, author: body.user.username, duration: dur, type: 1, img: body.artwork_url }
-    } else if(url !== null) {
-      var g = await snek.get(`https://api.soundcloud.com/resolve.json?url=${url}&client_id=${sc}`);
-      var dur = Math.round(g.body.duration / 1000);
+    var o = [];
 
-      var body = g.body;
-
-      if(!body || !body.id)
-        return {};
-
-      return { title: body.title, id: body.id, author: body.user.username, duration: dur, type: 1, img: body.artwork_url };
-    } else if(pid !== null) {
-      var g = await snek.get(`https://api.soundcloud.com/playlists/${pid}?client_id=${sc}`);
-      var dur = Math.round(g.body.duration / 1000);
-
-      var body = g.body;
-
-      if(!body || !body.id)
-        return {};
-
-      return { title: body.title, id: body.id, author: body.user.username, duration: dur, type: 1, img: body.artwork_url };
-    }
-  },
-
-  async search(query, type=0) {
-    var list = [];
-
-    if(type == 0) {
-      var g = await snek.get(`https://api.soundcloud.com/tracks?q=${query}&client_id=${sc}`);
-
-      if(!g.body[0])
-        return [];
-
-      for(var t of g.body) {
-        if(!t.id)
-          continue;
-
-        var dur = Math.round(t.duration / 1000);
-
-        list.push({ title: t.title, id: t.id, author: t.user.username, duration: dur, type: 1, img: t.artwork_url });
-      }
-    } else if (type == 1) {
-      var g = await snek.get(`https://api.soundcloud.com/playlists?q=${query}&client_id=${sc}`);
-
-      if(!g.body[0])
-        return [];
-
-      for(var p of g.body) {
-        if(!p.id)
-          continue;
-
-        list.push({ title: p.title, id: p.id, author: p.user.username, length: p.track_count, duration: Math.round(p.duration / 1000), img: p.artwork_url });
-      }
+    for(var track of tracks) {
+      await this.getInfo(track.id, playlist).then(async t => {
+        o.push(t);
+      });
     }
 
-    return list;
+    return o;
   },
 
-  async playlist(id, user) {
-    var g = await snek.get(`https://api.soundcloud.com/playlists/${id}?client_id=${sc}`);
-    var tracks = [];
+  async getInfo(id, playlist=false) {
+    var type = playlist ? 'playlists' : 'tracks';
+    var o = {};
 
-    if(!g.body.tracks)
+    await SC.get(`/${type}/${id}`).then(async t => {
+      if(!t)
+        t = null;
+
+      var track = { id: t.id, title: t.title, author: t.user.username, url: t.permalink_url };
+
+      if(playlist)
+        track.length = t.track_count;
+      else {
+        track.duration = (t.duration / 1000);
+        track.type = 1;
+        track.img = t.artwork_url;
+      }
+
+      o = track;
+    });
+
+    return o;
+  },
+
+  async getByUrl(url) {
+    if(!url)
+      return null;
+
+    var track;
+    var res = await snek.get(`https://api-v2.soundcloud.com/resolve?url=${url}&client_id=${scID}`);
+
+    var p = false;
+    if(typeof res.body.track_count !== "undefined")
+      p = true;
+
+    await this.getInfo(res.body.id, p).then(i => {
+      track = i;
+    });
+
+    return track;
+  },
+
+  async getPlaylistItems(id, channel=null) {
+    if(!id)
       return [];
 
-    for(var t of g.body.tracks) {
-      tracks.push({ title: t.title, id: t.id, author: t.user.username, duration: Math.round(t.duration / 1000), requester: user, type: 1, img: t.artwork_url });
-    }
+    var typing = true;
+    if(channel !== null)
+      setInterval(() => {
+        if(typing)
+          channel.sendTyping();
+        else
+          clearInterval();
+      }, 1e3);
+
+    var tracks = [];
+
+    await SC.get(`/playlists/${id}`).then(async p => {
+      for(var track of p.tracks) {
+        await this.getInfo(track.id).then(t => {
+          tracks.push(t);
+        });
+      }
+    });
+
+    typing = false;
 
     return tracks;
   }

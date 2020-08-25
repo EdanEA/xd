@@ -26,7 +26,7 @@ module.exports = async (guild, oldGuild) => {
     desc.length > 0 ? desc += "\n\n" : null;
 
     if(oldGuild.verificationLevel < guild.verificationLevel)
-      desc += `The guild's verification level from raised from \`${olgGuild.verificationLevel}\`, to \`${guild.verificationLevel}\`.`;
+      desc += `The guild's verification level from raised from \`${oldGuild.verificationLevel}\`, to \`${guild.verificationLevel}\`.`;
     else
       desc += `The guild's verification level was lowered from \`${oldGuild.verificationLevel}\`, to \`${guild.verificationLevel}\`.`;
   }

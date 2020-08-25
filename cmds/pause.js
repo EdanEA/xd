@@ -1,21 +1,18 @@
-exports.run = async (message, args) => {
-  var vc = client.voiceConnections.get(message.channel.guild.id);
+exports.run = (message, args) => {
+  const p = client.voiceConnections.get(message.channel.guild.id);
 
-  if(!vc)
-    return message.channel.createMessage(`<@${message.author.id}>, there is no audio stream to pause.`);
+  if(!p || p.paused)
+    return;
 
-  if(vc.paused)
-    return message.channel.createMessage(`<@${message.author.id}>, the audio stream is already paused.`);
+  p.togglePlayback();
 
-  await vc.pause();
-
-  return message.channel.createMessage(`Paused the audio stream.`);
+  return message.channel.createMessage(`Paused.`);
 };
 
 exports.info = {
   usage: ":pause",
   args: "None.",
-  description: "Allows someone to pause an audio stream.",
+  description: "Allows for pausing of a voice channel stream.",
   examples: ":pause",
   type: "music"
 };

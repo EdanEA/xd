@@ -35,6 +35,24 @@ exports.run = async (message, args) => {
         return {};
       }
 
+      var p = k.conf.basePrefix;
+      var gp = guilds[message.channel.guild.id].prefix;
+
+      if(p !== gp) {
+        info.usage = info.usage.replace(p, gp);
+
+        var c;
+
+        try {
+          c = info.examples.match(/[^\n]*\n[^\n]*/gi).length + 1
+        } catch(e) {
+          c = 0;
+        }
+
+        for(var i = 0; i <= c; i++)
+          info.examples = info.examples.replace(p, gp);
+      }
+
       e = {
         title: `\`${info.usage}\` info`,
         description: info.description,

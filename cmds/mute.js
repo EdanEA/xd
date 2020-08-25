@@ -1,6 +1,6 @@
 var f = require('../util/misc.js');
 exports.run = async (message, args) => {
-  if(!f.hasMod(message.channel.guild.id, message.author.id, client))
+  if(!f.hasMod(message.member, message.channel.guild))
     return message.channel.createMessage(`<@${message.author.id}>, you do not have sufficient permissions to use this command.`);
 
   var msg = args.join(' ');
@@ -20,7 +20,6 @@ exports.run = async (message, args) => {
   id = msg.match(idReg)[0];
   length = msg.replace(mReg, "").replace(idReg, "").replace(clearReg, " ");
 
-  // To do: Length logic
   var dayReg = new RegExp('{0-2}d', 'gi');
   var hourReg = new RegExp('{0-48}h', 'gi');
   var minuteReg = new RegExp('{0-2880}m', 'gi');

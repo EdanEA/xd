@@ -1,41 +1,56 @@
-const yt = require('../util/yt.js');
+exports.run = async (message, args) => {
+  if(!message.member.voiceState.channelID && !client.voiceConnections.get(message.channel.guild.id))
+    return message.channel.createMessage(`You're not in a voice channel.`);
 
-exports.run = async function(message, args) {
-  if(!message.member.voiceState && !client.voiceConnections.get(message.channel.guild.id))
-    return message.channel.createMessage(`<@${message.author.id}>, join a voice channel first.`);
-  else
-    await client.joinVoiceChannel(message.member.voiceState.channelID);
+  if(client.voiceConnections.get(message.channel.guild.id) && client.voiceConnections.get(message.channel.guild.id).playing)
+    return;
 
+  var vcid = message.member.voiceState.channelID;
   var g = guilds[message.channel.guild.id];
+  var q = queue[message.channel.guild.id];
 
-  var p;
-  if(typeof client.voiceConnections.get(message.channel.guild.id).playing === 'undefined')
-    var p = false;
-  else {
-    if(client.voiceConnections.get(message.channel.guild.id).playing)
-      var p = true;
-    else
-      var p = false;
-  }
+  await client.joinVoiceChannel(vcid);
 
-  if(!g.music.channel)
-    g.music.channel = message.channel.id;
+  g.music.vc = vcid;
+  g.music.channel = message.channel.id;
 
-  if(queue[message.channel.guild.id][0] && p == false) {
-    g.music.vc = message.member.voiceState.channelID;
-    require('../util/stream.js').play(g, client);
-  } else {
-    if(!queue[message.channel.guild.id][0])
-      return message.channel.createMessage(`<@${message.author.id}>, there's nothing in the queue. To add something to the queue, use \`:queue\``);
-    if(p == true)
-      return message.channel.createMessage(`<@${message.author.id}>, I'm already playing something.`);
-  }
+  require('../util/stream.js').play(g, client);
+
+  const player = client.voiceConnections.get(message.channel.guild.id);
+
+  player.on("trackStart", async d => {
+    client.voiceConnections.get(message.channel.guild.id).playing = true;
+  });
+
+  player.on("trackError", err => console.error(err));
+
+  player.on("trackEnd", async d => {
+    client.voiceConnections.get(player.guild).playing = false;
+
+    if(!q[0])
+      return;
+
+    if(g.music.queueRepeat) {
+      let i = q[0];
+
+      if(i.skip !== undefined && i.skip == true)
+        i.skip = false;
+
+      q.push(i);
+    }
+
+
+    if(!g.music.singleRepeat)
+      q.shift();
+
+    return require('../util/stream.js').play(guilds[player.guild], client);
+  });
 };
 
 exports.info = {
   usage: ":play",
   args: "None.",
+  description: "Starts a voice channel stream, playing the items in the queue.",
   examples: ":play",
-  description: "Plays the music; that is assuming there's something in the queue.",
   type: "music"
 };

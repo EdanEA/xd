@@ -9,6 +9,6 @@ exports.info = {
   usage: ":pick <list>",
   args: "[pick]: A list of thinks to pick from. Seperated by commas.",
   examples: ":pick xd, dx\n:pick csgo, minecraft, gta 5",
-  description: "Are you too much of an indecisive bitch to pick for yourself? Well, there's a command for that now, I guess.",
+  description: "Are you too much of an indecisive sod to pick for yourself? Well, there's a command for that now, I guess.",
   type: "misc."
 };

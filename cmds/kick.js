@@ -1,10 +1,10 @@
 var f = require('../util/misc.js');
 exports.run = async (message, args) => {
-  if(!f.hasMod(message.channel.guild.id, message.author.id, client))
+  if(!f.hasMod(message.member, message.channel.guild))
     return message.channel.createMessage(`<@${message.author.id}>, you don't have appropriate permissions to use this command.`);
 
   var idReg = new RegExp('[0-9]{18}', 'g');
-  var mReg = /<@[0-9]{18}>/g;
+  var mReg = /<@!?[0-9]{18}>/g;
   var clearReg = /\s+/g;
   var msg = args.join(' ');
   var r;

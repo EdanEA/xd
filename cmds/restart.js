@@ -15,16 +15,15 @@ exports.run = async function(message, args) {
       temp[vc.id] = queue[vc.id];
       temp[vc.id].unshift(queue[vc.id][0]);
 
-      try {
-        await client.leaveVoiceChannel(vc.channelID);
+      await client.leaveVoiceChannel(vc.channelID).then(async () => {
         await client.createMessage(guilds[vc.id].music.channel, "I have to restart.");
-      } catch (e) {
-        console.error(e.stack);
-      }
+      });
     });
 
+    console.log(JSON.stringify(temp, undefined, 2));
+
     if(Object.keys(temp).length > 0)
-      await fs.writeFile('./storage/temp.json', JSON.stringify(temp, null, 2), 'utf8', (err => {
+      await fs.writeFile('./storage/temp.json', JSON.stringify(temp, undefined, 2), 'utf8', (err => {
         if(err)
           throw err;
       }));
@@ -35,14 +34,14 @@ exports.run = async function(message, args) {
     });
   }
 
-  await writeAsync('./storage/guilds.json', guilds);
-  await writeAsync('./storage/roles.json', rolesave);
-  await finalize();
+  await finalize().then(async () => {
+    await writeAsync('./storage/guilds.json', guilds);
+    await writeAsync('./storage/roles.json', rolesave);
 
+    await message.channel.createMessage("*distant screams*");
 
-  await message.channel.createMessage("*distant screams*");
-
-  process.exit();
+    process.exit();
+  });
 };
 
 exports.info = {

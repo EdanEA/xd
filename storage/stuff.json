@@ -5,6 +5,12 @@
     "invitePermissions": "8"
   },
 
+  "lavalink": {
+    "pass": "",
+    "host": "",
+    "port": 25565
+  },
+
   "conf": {
     "basePrefix": ":",
     "baseColor": "EE7600",
@@ -12,12 +18,45 @@
     "ownerID": "",
     "staff": [],
     "beta": [],
-    "statuses": []
+    "statuses": [],
+    "defaultConfig": {
+      "logging": {
+        "wgb": false,
+        "wgbChannel": null,
+        "logEnabled": false,
+        "logChannel": null,
+        "events": []
+      },
+      "music": {
+        "defaultSearch": "youtube",
+        "defaultSearchCount": 3,
+        "anySkip": false,
+        "singleRepeat": false,
+        "queueRepeat": false,
+        "channel": "",
+        "msgType": 1
+      },
+      "mod": {
+        "mutes": [],
+        "muteRoleId": null,
+        "roleSaveActive": false
+      },
+      "color": "EE7600",
+      "prefix": null,
+      "id": null
+    }
   },
 
   "keys": {
-    "ytk":"",
-    "scID":"",
-    "shittyBotLists": {}
+    "ytk": "",
+    "scID": "",
+    "shittyBotLists": {
+      "top": "",
+      "bod": "",
+      "bfd": "",
+      "dbgg": "",
+      "dbl": "",
+      "dbw": ""
+    }
   }
 }

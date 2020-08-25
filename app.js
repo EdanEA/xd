@@ -1,5 +1,3 @@
-/* global k, guilds, commands, queue, users, rolesave, c, Eris, client, moment, sql */
-
 global.k = require('./storage/stuff.json');
 global.guilds = require('./storage/guilds.json');
 global.commands = [];
@@ -17,7 +15,7 @@ global.c = require('chalk');
 global.Eris = require('eris');
 require("eris-additions")(Eris, { disabled: ["Channel.sendMessage", "Channel.sendCode", "Eris.Embed"] });
 global.client = new Eris.Client(k.bot.token, {
-  maxShards: 3,
+  maxShards: "auto",
   connectionTimeout: 60000,
   defaultImageFormat: "png",
   defaultImageSize: 1024,
@@ -61,7 +59,6 @@ setInterval(async () => {
 }, 6E4);
 
 setInterval(async () => {
-  await f.checkInactive();
   await f.updateStatus(k.conf.statuses);
 
   if(client.token == k.bot.token)

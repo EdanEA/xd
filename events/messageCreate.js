@@ -3,41 +3,18 @@ module.exports = (message) => {
     return;
 
   if(!guilds[message.channel.guild.id]) {
-    guilds[message.channel.guild.id] = {
-      logging: {
-        wgb: false,
-        wgbChannel: null,
-        logEnabled: false,
-        logChannel: null,
-        events: []
-      },
-      music: {
-        defaultSearch: "youtube",
-        defaultSearchCount: 3,
-        anySkip: false,
-        singleRepeat: false,
-        queueRepeat: false,
-        channel: "",
-        msgType: 1
-      },
-      mod: {
-        mutes: [],
-        muteRoleId: null,
-        roleSaveActive: false
-      },
-      color: "EE7600",
-      prefix: ":",
-      id: message.channel.guild.id
-    };
+    guilds[message.channel.guild.id] = k.conf.defaultConfig;
+    guilds[message.channel.guild.id].id = message.channel.guild.id;
+    guilds[message.channel.guild.id].prefix = k.conf.basePrefix;
   }
 
-  if(!message.channel.guild)
+  if(!queue[message.channel.guild.id])
+    queue[message.channel.guild.id] = [];
+
+  if(!message.channel.guild || message.author.bot)
     return;
 
-  if(message.author.bot)
-    return;
-
-  var prefix = k.conf.prefix;
+  var prefix = k.conf.basePrefix;
 
   if(!message.content.startsWith(prefix) && !message.content.startsWith(`<@!${client.user.id}> `) && !message.content.startsWith(`<@${client.user.id}> `) && !message.content.startsWith(guilds[message.channel.guild.id].prefix))
     return;
@@ -62,8 +39,7 @@ module.exports = (message) => {
   try {
     require(`../cmds/${cmd}`).run(message, args);
   } catch (e) {
-
-    if(!(e.message.includes('Cannot find module') || e.message.includes('ENOENT') || e.length > 2000) && message.author.id == k.conf.ownerID) {
+    if(!(e.message.includes('Cannot find module') || e.message.includes('ENOENT') || e.length > 2000)) {
       console.log(c.red(e.stack));
 
       if(message.author.id == k.conf.ownerID)

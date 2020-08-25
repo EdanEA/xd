@@ -1,21 +1,35 @@
-exports.run = async (message, args) => {
-  if(!args[0])
-    return message.channel.createMessage(`<@${message.author.id}>, you must give a number to set the volume to.`);
-  if(!parseInt(args[0]))
-    return message.channel.createMessage(`<@${message.author.id}>, the argument given is invalid; it must be an integer`);
-  if(!client.voiceConnections.get(message.channel.guild.id))
-    return message.channel.createMessage(`<@${message.author.id}>, there is no active audio stream in this server.`);
+exports.run = (message, args) => {
+  const p = client.voiceConnections.get(message.channel.guild.id);
 
-  var volume = parseInt(args[0]) * 10 ** -2;
-  await client.voiceConnections.get(message.channel.guild.id).setVolume(volume);
+  if(args.length == 0 || !p)
+    return;
 
-  return message.channel.createMessage(`Volume is now set to \`${volume * 10 ** 2}%\`.`);
+  var v = parseInt(args.join(' '));
+
+  if(isNaN(v))
+    return;
+
+  if(v < 1)
+    return message.channel.createMessage(`You can't set the volume below 1.`);
+
+  p.setVolume(v);
+
+  var msg = `Set the volume to \`${v}%\`.`;
+
+  if(v > 100 && v < 250)
+    msg += " I hope you like noise.";
+  else if(v > 250 && v < 500)
+    msg += " I hope you like harsh noise.";
+  else if(v > 500)
+    msg += " I hope you enjoy early-onset hearing loss.";
+
+  return message.channel.createMessage(`Set the volume to \`${v}%\`.`);
 };
 
 exports.info = {
-  usage: ":volume <value>",
-  args: "<value>: The value to set the stream's volume to.",
-  description: "The `volume` command allows you to adjust the volume of the current audio stream. When given a number, this command adjusts the volume value to this given number.",
-  examples: ":volume 80\n:volume 200",
+  usage: "volume% [volume]",
+  args: "[volume]: The volume to set the stream to.",
+  description: "For increasing or decreasing the volume of a voice channel stream.",
+  examples: "volume% 75\nvolume% 120",
   type: "music"
 };

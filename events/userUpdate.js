@@ -14,9 +14,6 @@ module.exports = async (user, oldUser) => {
   else
     return;
 
-  console.log(embed);
-  console.log()
-
   client.guilds.forEach(g => {
     if(g.members.has(user.id))
       gList.push(g.id);

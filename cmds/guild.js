@@ -57,7 +57,7 @@ exports.run = async (message, args) => {
       return message.channel.createMessage(`<@${message.author.id}>, you broke it. ):`);
 
     return message.channel.createMessage({embed: e});
-  } else if(idReg.test(args.join(' '))) {
+  } else {
     if(!k.conf.staff.includes(message.author.id) && message.author.id !== k.conf.ownerID)
       return;
 
@@ -68,8 +68,6 @@ exports.run = async (message, args) => {
 
     return message.channel.createMessage({embed: e});
   }
-
-  return message.channel.createMessage(`<@${message.author.id}>, you broke it. ):`);
 };
 
 exports.info = {

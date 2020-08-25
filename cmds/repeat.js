@@ -11,6 +11,7 @@ exports.run = function (message, args) {
         g.music.queueRepeat = false;
 
       g.music.singleRepeat = true;
+
       return message.channel.createMessage(`The guild's single item repeat is now enabled.`);
     }
   } else if(args[0] == "queue" || args[0] == "loop") {
@@ -22,7 +23,7 @@ exports.run = function (message, args) {
       if(g.music.singleRepeat == true)
         g.music.singleRepeat = false;
 
-      g.queueRepeat = true;
+      g.music.queueRepeat = true;
       return message.channel.createMessage(`The guild's queue loop is now enabled.`);
     }
   } else
@@ -31,8 +32,8 @@ exports.run = function (message, args) {
 
 exports.info = {
   usage: ":repeat [type]",
-  args: "[type]: Either nothing, `single`, `guild` or `loop`.",
-  examples: ":repeat single\n:repeat\n:repeat guild",
+  args: "[type]: Either nothing, `single`, `queue` or `loop`.",
+  examples: ":repeat single\n:repeat\n:repeat queue",
   description: "If no arguments or \"single\" are left, and single repeat is not currently enabled, single repeat will be enabled. If it is enabled, it will be disabled. If the argument given is \"queue\" or \"loop\", then the queue as it currently stands is stored and continually played. The same occurs if \"queue\" or \"loop\" is left, whereas if it's currently enabled it will be disabled when the command is run.",
   type: "music"
 };

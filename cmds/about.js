@@ -3,7 +3,7 @@ exports.run = (message, args) => {
     fields: [
       {
         name: "What is this?",
-        value: "This is XD bot--formerly Russian Roulette. It was made by some boy named Edan, as to combine Russian Roulette, and his other bot, [Cynthia](https://github.com/edanea/cynthia). It's pretty much like every other bot, but, y'know, XD."
+        value: "This is XD bot--formerly Russian Roulette. It was made by some boy named Edan, as to combine [Russian Roulette](https://github.com/edanea/russian-roulette) and his other bot, [Cynthia](https://github.com/edanea/cynthia). It's pretty much like every other bot, but, y'know, XD."
       },
       {
         name: "What does it do?",
@@ -11,7 +11,7 @@ exports.run = (message, args) => {
       },
       {
         name: "Ways to help",
-        value: "You can help with the bot's development by contributing to the [GitHub](https://github.com/edanea/xd). If there's any bugs you notice, you can report them with the `report` command."
+        value: "You can help with the bot's development by contributing to the [GitHub](https://github.com/edanea/xd). If there's any bugs you notice, you can report them on the [GitHub page](https://github.com/edanea/xd) or tell them to someone in the [server](https://discord.gg/WEpCRUV)."
       },
       {
         name: "Website, website, website?!",
@@ -24,8 +24,8 @@ exports.run = (message, args) => {
 };
 
 exports.info = {
-  usage: ":usage",
-  examples: ":usage",
+  usage: ":about",
+  examples: ":about",
   args: "None.",
   type: "misc."
 };

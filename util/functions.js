@@ -1,11 +1,11 @@
 module.exports = (Eris) => {
-  process.on("uncaughtException", (err) => {
-    console.error(c.gray(`Uncaught Exception: ${err}`));
-  });
-
-  process.on("unhandledRejection", err => {
-    console.error(c.gray(`Unhandled rejection: ${err}`));
-  });
+  // process.on("uncaughtException", (err) => {
+  //   console.error(c.gray(`Uncaught Exception: ${err}`));
+  // });
+  //
+  // process.on("unhandledRejection", err => {
+  //   console.error(c.gray(`Unhandled rejection: ${err}`));
+  // });
 
   // Stolen from this guy, 'cause I'm retarded. https://github.com/TTtie xd
   Object.defineProperty(Eris.Guild.prototype, "defaultChannel", {
