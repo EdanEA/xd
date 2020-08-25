@@ -56,6 +56,7 @@
       <a class=button href="#deafen">:deafen</a>
       <a class=button href="#eval">:eval</a>
       <a class=button href="#flip">:flip</a>
+      <a class=button href="#forcerr">:forcerr</a>
       <a class=button href="#gs">:gamestats</a>
       <a class=button href="#guild">:guild</a>
       <a class=button href="#help">:help</a>
@@ -157,7 +158,7 @@
       </div>
       
       <div id="color" class=command>
-        <h2>:cinv [color]</h2>
+        <h2>:color [color]</h2>
         
         <p>
           Allows a moderator for the current guild to change the embed color for the guild.
@@ -227,6 +228,21 @@
         <code>
           <p>:flip</p>
           <p>:flip heads</p>
+        </code><br /> 
+      </div>
+      
+      <div id="forcerr" class=command>
+        <h2>:forcerr &lt;user&gt; [bullets] [-u noban]</h2>
+        
+        <p>
+          Like the <a href="#rr">rr</a> command, but for use on others instead of one's self.
+        </p>
+        
+        <div>Examples:</div><br/>
+        <code>
+          <p>:forcerr <@667231680893026306> <span class=comment>// forces the mentioned user to play rr</span></p>
+          <p>:forcerr <@356767352400117760> 3 <span class=comment>// has the mentioned user play rr with 3 "bullets" (a 50% chance of losing)</span></p>
+          <p>:forcerr <@349012376978194434> 5 -u <span class=comment>// has the mentioned user play rr with 5 "bullets" (an 83.33% chance of losing) but without the chance of being banned.</span></p>
         </code><br /> 
       </div>
       
@@ -557,7 +573,7 @@
         <div>Examples:</div><br/>
         <code>
           <p>:skip <span class=comment>// skips the currently playing item</span></p>
-          <p>:skip 5 <span class=comment>// sets the item at index 5 to be skipped</span></p>
+          <p>:skip 5 <span class=comment>// skips to point 5 in the queue</span></p>
           <p>:skip 3-6 <span class=comment>// sets items 3, 4, 5, and 6 to be skipped</span></p>
         </code><br /> 
       </div>
@@ -622,7 +638,7 @@
         
         <p>
           Adjusts the volume of the music stream.<br />
-          value is a number from 1-200.
+          value is an integer. Feel free to make your ears bleed.
         </p>
         
         <div>Example:</div><br/>
