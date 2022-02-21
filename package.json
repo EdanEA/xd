@@ -21,7 +21,7 @@
     "snekfetch": "^4.0.4",
     "soundcloud-v2-api": "^0.1.4",
     "sqlite": "^3.0.6",
-    "url-parse": "^1.4.7",
+    "url-parse": "^1.5.9",
     "ytdl-core": "^2.1.7"
   }
 }
