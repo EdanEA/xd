@@ -20,7 +20,7 @@
     "node-fetch": "^2.6.0",
     "snekfetch": "^4.0.4",
     "soundcloud-v2-api": "^0.1.4",
-    "sqlite": "^3.0.6",
+    "sqlite": "^4.0.1",
     "url-parse": "^1.4.7",
     "ytdl-core": "^2.1.7"
   }
