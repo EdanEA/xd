@@ -9,18 +9,18 @@
   "author": "Edan",
   "license": "Unlicense",
   "dependencies": {
-    "@thesharks/tyr": "^1.1.3",
+    "@thesharks/tyr": "^1.2.0",
     "axios": "^0.19.2",
     "chalk": "^2.4.2",
     "dblapi.js": "^2.4.0",
-    "eris": "^0.13.3",
+    "eris": "^0.13.4",
     "eris-additions": "^1.4.1",
     "moment": "^2.27.0",
     "moment-duration-format": "^2.3.2",
     "node-fetch": "^2.6.0",
     "snekfetch": "^4.0.4",
     "soundcloud-v2-api": "^0.1.4",
-    "sqlite": "^3.0.6",
+    "sqlite": "^4.0.1",
     "url-parse": "^1.4.7",
     "ytdl-core": "^2.1.7"
   }
